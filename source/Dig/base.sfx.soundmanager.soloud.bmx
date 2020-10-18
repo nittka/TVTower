@@ -5,7 +5,7 @@ Import audio.soloudaudio
 'or sdl
 'Import audio.soloudaudiosdl
 'miniaudio
-Import audio.soloudaudiominiaudio
+Import audio.soloudminiaudio
 
 Import "base.sfx.soundmanager.base.bmx"
 

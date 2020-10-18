@@ -459,12 +459,14 @@ print "-----"
 		'=== START PLAYING ===
 		'if nothing was playing yet, just start except we are playing already
 		If not activeMusicChannel.Playing() 'and not activeMusicStream ' and fadeProcess = 0
+Rem
 			TLogger.Log("TSoundManager.Update()", "No active music channel playing, start new from current playlist", LOG_DEBUG)
 			PlayMusicPlaylist(GetCurrentPlaylist())
 
 			'enable autocrossfading for next song if disabled in the
 			'past (eg through playing the same song twice)
 			if autoCrossFadeTime > 0 then autoCrossFadeNextSong = True
+EndRem
 		EndIf
 
 
@@ -689,6 +691,8 @@ print "FadeOverToNextTitle() finished"
 
 		'start to play music if not done yet
 		If Not activeMusicChannel or Not activeMusicChannel.Playing()
+			forceNextMusic = False
+Rem
 			If Not nextMusicStream
 				TLogger.Log("PlayMusicOrPlaylist", "could not start activeMusicChannel: no next music found", LOG_DEBUG)
 			Else
@@ -704,6 +708,7 @@ print "FadeOverToNextTitle() finished"
 
 				forceNextMusic = False
 			EndIf
+EndRem
 		EndIf
 
 

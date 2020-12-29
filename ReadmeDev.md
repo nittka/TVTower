@@ -13,7 +13,8 @@ Bislang ist es mir nicht gelungen, die ausführbare Datei zu erstellen.
 Testen der Änderungen ging dann durch compile und run auf der Hauptdatei.
 
 1. Download Blitzmax https://blitzmax.org/downloads/ (Linux-Variante)
-1. TVT clonen (und gewüschten Branch auschecken/neuen anlegen)
+1. Installation der nötigen Abhängigkeiten (https://blitzmax.org/docs/en/setup/linux/)
+1. TVT clonen (und gewüschten Branch auschecken/neuen anlegen) (Oomph-Setup übernimmt das Clonen)
 1. MaxIDE starten
 1. TVT-Projekt importieren
 1. TVTower.bmx öffnen
@@ -23,29 +24,11 @@ Selbst wenn man Auto-Indent und Auto-UpperCasing deaktiviert, werden die Zeilene
 Dadurch ändert sich selbst bei Einzeiler-Änderungen die gesamte Datei.
 
 Als Konsequenz habe ich die Code-Änderungen ausschließlich extern vorgenommen und MaxIDE nur für das Compilieren verwendet.
+Z.B. Verwendung des minimalistischen aber für die Navigation und Suche von Typen hilfreichen Xtext-Editors (https://github.com/TVTower/TVTBlitzmaxEditor) via Oomph-Setup (https://raw.githubusercontent.com/TVTower/TVTBlitzmaxEditor/master/TVTBlitzmax.setup).
 
 ## Compilierbarkeit herstellen
 
-Für das Durchlaufen des ersten Compile-Vorgangs gab es zwei wesentliche Hürden.
-
-* fehlender C-Compiler sowie fehlende C-Header-Dateien; beides aufgrund nicht installierter Pakete
-* ein fehlendes Blitz-Max-Interface, da sich möglicherweise zwischen alter und NG-Version etwas geändert hat
-
-Die fehlenden Pakete habe ich nach und nach aufgrund der Fehlermeldungen mittels `sudo apt-get install` installiert (insb g++ für das Compilieren überhaupt).
-Wenn eine Header-Datei als fehlend gemeldet wurde, kann man entweder eine Internet-Suche starten oder verwendet `apt-file search <pfad/datei.h>` um das fehlende Paket zu finden und dann zu installieren.
-Das hat ziemlich gut funktioniert.
-Eine Liste der Pakete findet sich auch unter https://blitzmax.org/docs/en/setup/linux/; die habe ich aber erst hinterher gefunden.
-
-Ein zweites Problem war ein Import, der unter der NG-MayIDE aufgrund eines fehlenden Interfaces nicht aufgelöst werden konnte.
-
-In `source/Dig/base.sfx.soundmanager.soloud.bmx` musste `Import audio.soloudaudiominiaudio` durch `Import audio.soloudminiaudio` ersetzt werden.
-
-## Erster Compile-Lauf hat funktioniert, aber
+Dieses Problem wurde durch die Reparatur eines Imports via Ticket #255 im Commit  46f844763811460aa8d9ee2daf42aea92780a502 behoben.
+Mit dem Installieren der Blitzmax-Abhängigkeiten sollte alles funktionieren (ansonsten Vorgängerversion dieser Datei anschauen).
 
 Das Setzen der Build-Option Quick-Build ist sinnvoll, damit nur die Änderungen nochmal gebaut werden und die Zeiten zwischen Code-Änderung und Ausprobieren gering gehalten werden.
-
-Mit dem Kommando `Build and Run` (auf der Hauptdatei ausgeführt) startet TVT anschließend.
-In meinem Fall war die Frame-Rate dann aber 1FPS, da das Starten des Tons nicht funktioniert, aber permanent wieder angestoßen wurde (bemerkbar durch andauernde Logmeldungen `TSoundManager.Update()` und `PlayMusicOrPlaylist`).
-Als Konsequenz habe ich die entsprechenden Blöcke in `source/Dig/base.sfx.soundmanager.base.bmx` auskommentiert um die Musikwiedergabe zu unterbinden.
-Danach war die Frame-Rate dann OK und die eigentliche Arbeit konnte beginnen.
-Die Änderungen in den sound-Dateien sollte man natürlich nur lokal machen und nicht zum Teil eines Pull-Request machen.

@@ -1237,6 +1237,9 @@ endrem
 			base :* typeTimeMod
 			base = Max(base, ceil(script.GetBlocks()*blockMinimumMod) * TWorldTime.HOURLENGTH)
 		endif
+
+		'cheat for fast productions
+		return TWorldTime.MINUTELENGTH * 5
 		'round to minutes (TWorldTime.MINUTELENGTH and base are LONG)
 		return TWorldTime.MINUTELENGTH * (base / TWorldTime.MINUTELENGTH)
 	End Method

@@ -1379,6 +1379,8 @@ endrem
 
 		If script.IsSeries() Then base:* 0.75
 
+		'cheat for fast productions
+		return TWorldTime.MINUTELENGTH * 5
 		'round to minutes (TWorldTime.MINUTELENGTH and base are LONG)
 		Return TWorldTime.MINUTELENGTH * (base / TWorldTime.MINUTELENGTH)
 	End Method

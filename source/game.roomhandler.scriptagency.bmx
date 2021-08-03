@@ -12,6 +12,7 @@ Type RoomHandler_ScriptAgency extends TRoomHandler
 	Global VendorEntity:TSpriteEntity
 	'allows registration of drop-event
 	Global VendorArea:TGUISimpleRect
+	Global TGUINewsArea:TGUISimpleRect
 
 	'arrays holding the different blocks
 	'we use arrays to find "free slots" and set to a specific slot
@@ -109,6 +110,8 @@ Type RoomHandler_ScriptAgency extends TRoomHandler
 			VendorArea.setOption(GUI_OBJECT_CLICKABLE, False)
 			VendorArea.setOption(GUI_OBJECT_ACCEPTS_DROP, TRUE)
 			VendorArea.zIndex = 0
+
+			TGUINewsArea = new TGUINewsArea.Create()
 
 			'must be above vendorArea, as they overlap
 			GuiListSuitcase.zIndex = 100
@@ -1120,4 +1123,83 @@ Type TGUIScriptAgencyScript Extends TGUIScript
 			
 		Return Super.IsDragable()
 	End Method
+End Type
+
+Type TGUINewsArea extends TGUISimpleRect
+
+	Method Create:TGUINewsArea()
+		Super.Create(new TVec2D.Init(255,285), new TVec2D.Init(60,60), "scriptagency")
+
+		setOption(GUI_OBJECT_CAN_GAIN_FOCUS, False)
+		setOption(GUI_OBJECT_CLICKABLE, TRUE)
+		setOption(GUI_OBJECT_ACCEPTS_DROP, False)
+		zIndex = 0
+		Return Self
+	End Method
+
+	Method onClick:Int(triggerEvent:TEventBase) override
+		Local player:int = GetPlayerBase().playerID
+		Local item:TNews = obtainNews(player)
+		if item
+			Local script:TScript=createScript(item)
+			if script
+				RoomHandler_ScriptAgency.GetInstance().SellScriptToPlayer(script, player)
+			endif
+		endif
+		Return True
+	End Method
+
+	Method obtainNews:TNews(owner:int)
+		'TODO actually get selectednews
+		Local allNews:TList = GetPlayerProgrammeCollection(owner).news
+		if allNews and not allNews.isEmpty()
+			Local item:TNews = TNews(allNews.First())
+			return item
+		endif
+		return null
+	End Method
+
+	Method createScript:TScript(news:TNews)
+		Local script:TScript = New TScript
+		script.title = news.getNewsEvent().title
+		script.description = news.getNewsEvent().description
+		script.outcome=1
+		script.review=1
+		script.speed=1
+		script.potential=1
+		script.blocks=2
+		script.price=10000
+		script.flags=TVTProgrammeDataFlag.LIVE
+		script.scriptFlags=TVTScriptFlag.REMOVE_ON_REACHING_PRODUCTIONLIMIT
+		'TODO Berechnung live time slot nicht wie erwartet
+		'script.liveTimeSlot=7
+		'script.broadcastTimeSlotStart=19
+		'script.broadcastTimeSlotEnd=21
+		script.productionBroadcastFlags=TVTBroadcastMaterialSourceFlag.ALWAYS_LIVE 'TVTBroadcastMaterialSourceFlag.BROADCAST_TIME_SLOT_ENABLED
+		script.productionLicenceFlags=TVTProgrammeLicenceFlag.REMOVE_ON_REACHING_BROADCASTLIMIT
+		script.setProductionLimit(1)
+		script.setProductionBroadcastLimit(1)
+		script.productionTime=TWorldTime.MINUTELENGTH *60
+		script.productionTimeModBase=1
+		script.SetScriptFlag(TVTScriptFlag.TRADEABLE, False)
+		script.scriptLicenceType=TVTProgrammeLicenceType.SINGLE
+		script.scriptProductType=TVTProgrammeProductType.FEATURE 'UNDEFINED
+		script.requiredStudioSize=1
+		'TODO NewsSpecial führt zu Exception bei Bewertungsberechnung kein Movie-Genre
+		script.mainGenre=TVTProgrammeGenre.Feature 'NewsSpecial
+
+		'TODO jobs; für Genre entscheidende Attribute
+		script.jobs=New TPersonProductionJob[3]
+		script.jobs[0]=New TPersonProductionJob.Init(0, TVTPersonJob.HOST)
+		script.jobs[1]=New TPersonProductionJob.Init(0, TVTPersonJob.REPORTER)
+		script.jobs[2]=New TPersonProductionJob.Init(0, TVTPersonJob.GUEST)
+		'Lokalisierung NewsSpecial
+		'Bild NewsSpecial
+		return script
+	End Method
+
+	Method DrawContent() override
+		DrawDebug()
+	End Method
+
 End Type

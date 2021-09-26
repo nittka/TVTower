@@ -2,6 +2,9 @@
 <tvt>
 	<resources>
 		<data name="DEV_CONFIG">
+			<!--enable automatic fast forward when switching a rook using a key short cut-->
+			<DEV_ROOM_KEY_FAST_FORWARD value="TRUE" />
+
 			<DEV_KEYS value="TRUE" />
 			<DEV_OSD value="FALSE" />
 			<DEV_LOG value="TRUE" />

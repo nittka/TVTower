@@ -447,6 +447,7 @@ Type TFigure extends TFigureBase
 
 
 	Method GreetPeopleOnSameFloor()
+		Local greetTypeSound:int = -1
 		For Local Figure:TFigure = EachIn GetFigureCollection() '.GetEntriesID().Values()
 			'skip other figures
 			if self = Figure then continue
@@ -462,7 +463,7 @@ Type TFigure extends TFigureBase
 			if greetType <> lastGreetType or GetBuildingTime().GetTimeGone() - lastGreetTime > greetEvery or lastGreetFigureID <> figure.id
 				lastGreetType = greetType
 				lastGreetFigureID = figure.id
-
+				greetTypeSound = greetType
 				lastGreetTime = GetBuildingTime().GetTimeGone()
 			endif
 
@@ -484,6 +485,12 @@ Type TFigure extends TFigureBase
 				SetAlpha oldAlpha
 			endif
 		Next
+		Select greetTypeSound
+			Case 0
+				GetSoundSource().PlayOrContinueRandomSFX("hellounfriendly")
+			Case 1
+				GetSoundSource().PlayOrContinueRandomSFX("hello")
+		End Select
 	End Method
 
 	'a room is locked for all figures except they have the masterKey

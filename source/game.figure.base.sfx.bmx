@@ -39,13 +39,33 @@ Type TFigureBaseSoundSource Extends TSoundSourceElement
 	End Method
 
 	Method GetIsHearable:Int()
+		If not Self.ChannelInitialized Then Return False
 		Return (GetPlayerBase() and not GetPlayerBase().IsInRoom())
 	End Method
 
 	Method GetChannelForSfx:TSfxChannel(sfx:String)
+		rem
+		'TODO initialize and add hello channels in create...
+				If Not Self.ChannelInitialized
+					'Channel erst hier hinzufügen... am Anfang hat Figure noch keine id
+					Self.AddDynamicSfxChannel("Steps" + Self.GetGUID())
+					Self.AddDynamicSfxChannel("Hello" + Self.GetGUID())
+					Self.AddDynamicSfxChannel("HelloUnfriendly" + Self.GetGUID())
+					Self.ChannelInitialized = True
+				EndIf
+				Return GetSfxChannelByName("Steps" + Self.GetGUID())
+		endrem
 		Select sfx
 			Case "steps"
 				Return Self._stepsChannel
+			Case "hello"
+				If Self.ChannelInitialized
+					Return GetSfxChannelByName("Hello" + Self.GetGUID())
+				EndIf
+			Case "hellounfriendly"
+				If Self.ChannelInitialized
+					Return GetSfxChannelByName("HelloUnfriendly" + Self.GetGUID())
+				EndIf
 		EndSelect
 	End Method
 
@@ -53,6 +73,10 @@ Type TFigureBaseSoundSource Extends TSoundSourceElement
 		Select sfx
 			Case "steps"
 				Return GetStepsSettings()
+			Case "hello"
+				Return GetHelloSettings()
+			Case "hellounfriendly"
+				Return GetHelloUnfriendlySettings()
 		EndSelect
 	End Method
 
@@ -73,5 +97,31 @@ Type TFigureBaseSoundSource Extends TSoundSourceElement
 		_stepSfxSettings.minVolume = 0
 
 		Return _stepSfxSettings
+	End Method
+
+	Method GetHelloSettings:TSfxSettings()
+		Local result:TSfxSettings = New TSfxFloorSoundBarrierSettings
+		result.nearbyDistanceRange = 60
+		result.maxDistanceRange = 100
+		result.nearbyRangeVolume = 0.3
+		result.midRangeVolume = 0.1
+
+		'result.nearbyRangeVolume = 0.15
+		'result.midRangeVolume = 0.05
+		result.minVolume = 0
+		Return result
+	End Method
+
+	Method GetHelloUnfriendlySettings:TSfxSettings()
+		Local result:TSfxSettings = New TSfxFloorSoundBarrierSettings
+		result.nearbyDistanceRange = 60
+		result.maxDistanceRange = 100
+		result.nearbyRangeVolume = 0.3
+		result.midRangeVolume = 0.1
+
+		'result.nearbyRangeVolume = 0.15
+		'result.midRangeVolume = 0.05
+		result.minVolume = 0
+		Return result
 	End Method
 End Type

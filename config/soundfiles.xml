@@ -48,6 +48,8 @@
 		<sfx name="sound_sfx_door_open" url="res/sfx/openDoor.ogg" playlists="door_open" />
 		<sfx name="sound_sfx_door_close" url="res/sfx/closeDoor.ogg" playlists="door_close" />
 		<sfx name="sound_sfx_steps" url="res/sfx/steps.ogg" playlists="steps" loop="true" />
+		<sfx name="sound_sfx_hello" url="res/sfx/cashRegister.ogg" playlists="hello" loop="false" />
+		<sfx name="sound_sfx_hellounfriendly" url="res/sfx/kickFromRoom.ogg" playlists="hellounfriendly" loop="false" />
 		<sfx name="sound_sfx_kick_figure" url="res/sfx/kickFromRoom.ogg" playlists="kick_figure" />
 
 		<sfx name="sound_sfx_elevator_engine" url="res/sfx/elevator_engine.ogg" playlists="elevator_engine" loop="true" />

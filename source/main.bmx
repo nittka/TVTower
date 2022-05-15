@@ -4755,6 +4755,8 @@ endrem
 		Local minuteOfHour:Int = GetWorldTime().GetDayMinute(gameTime)
 		If minuteOfHour < 0 Then Return False
 
+		If minuteOfHour = 57 and GetWorldTime().GetDayHour(gameTime) = 23 then LogStatistics()
+		
 		'print "playersOnMinute:  gameTime="+GetWorldTime().GetFormattedGameDate(gameTime) + "    " + gameTime + " =============================="
 		Local localAIPlayerCount:Int
 		For Local player:TPLayer = EachIn GetPlayerCollection().players
@@ -6573,7 +6575,29 @@ End Function
 
 
 
+Global statisticStream:TStream = WriteStream("utf8::" + "logfiles/statistic.csv")
 
+Function LogStatistics:Int()
+	local day:int = GetWorldTime().GetDaysRun()+1
+	local totalDay:int = GetWorldTime().GetDay()
+	if day = 1 then statisticStream.WriteString("player;day;hour;totalReach;costsDay;income"+"~n")
+	For Local player:Int = 1 To 4
+		local reach:Int = GetStationMap(player,False).getReach()
+		local costs:Int = GetStationMap(player, False).CalculateStationCosts()
+		For local hour:Int = 0 To 23
+			Local adSlotMaterial:TBroadcastMaterial =  GetPlayerProgrammePlan(player).GetAdvertisement(totalDay, hour)
+			Local adText:String = "0"
+			If adSlotMaterial and adSlotMaterial.isType(TVTBroadcastMaterialType.ADVERTISEMENT)
+				Local contract:TAdContract = TAdContract(TAdvertisement(adSlotMaterial).contract)
+				If contract
+					adText = contract.GetProfitForPlayer(player) / contract.GetSpotCount()
+				EndIF
+			EndIf
+			statisticStream.WriteString(player+";"+day+";"+hour+";"+reach+";"+costs+";"+adText+"~n")
+		Next
+	Next
+	statisticStream.flush()
+End Function
 
 
 

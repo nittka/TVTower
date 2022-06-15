@@ -5,7 +5,7 @@
 			<DEV_KEYS value="TRUE" />
 			<DEV_OSD value="FALSE" />
 			<DEV_LOG value="TRUE" />
-			<DEV_AI_GAME_SPEED value="1000" />
+			<DEV_AI_GAME_SPEED value="2400" />
 			
 			<!-- wait for AI players so they all finished a certain game minute / tick -->
 			<DEV_SYNC_AI_ON_TIME value="FALSE" />
@@ -129,7 +129,8 @@
 
 
 			<!-- use another AI script for player #2 -->
-			<!-- <PLAYERAISCRIPT2 value="res/ai/Sample/Sample.lua" /> -->
+			<PLAYERAISCRIPT2 value="res/ai/OldAI/DefaultAIPlayer.lua" /> 
+			<PLAYERAISCRIPT4 value="res/ai/OldAI/DefaultAIPlayer.lua" /> 
 		</data>
 	</resources>
 </tvt>

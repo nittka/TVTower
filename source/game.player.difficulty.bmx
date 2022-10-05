@@ -2,6 +2,7 @@ SuperStrict
 Import "game.gameobject.bmx"
 Import "Dig/base.util.logger.bmx"
 Import "Dig/base.util.data.bmx"
+Import "Dig/base.util.helper.bmx"
 Import "Dig/base.util.data.xmlstorage.bmx"
 
 
@@ -119,7 +120,12 @@ Type TPlayerDifficultyCollection Extends TGameObjectCollection
 
 
 	Method AddToPlayer:int(playerID:int, difficulty:TPlayerDifficulty)
-		entries.Insert(string(playerID), difficulty)
+		Local clone:TPlayerDifficulty = TPlayerDifficulty(THelper.CloneObject(difficulty))
+		'provide unique IDs to the cloned object
+		Local idObj:TEntityBase = new TEntityBase
+		clone.id=idObj.id
+		clone.SetGUID("difficulty_"+playerID)
+		entries.Insert(string(playerID), clone)
 	End Method
 End Type
 

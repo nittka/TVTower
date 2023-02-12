@@ -730,169 +730,44 @@ Her normal body size is expected to be reached in a week.</en>
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
 
-		<news id="2f64517a-f2d6-4720-a195-6a35cc6e72c6" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="0" creator="">
+		<news id="carStrike_0" thread_id="carStrike" type="0">
 			<title>
-				<de>Fort schreibt Verluste</de>
-				<en>Fort records losses</en>
+				<de>${brand} schreibt Verluste</de>
+				<en>${brand} records losses</en>
 			</title>
 			<description>
-				<de>Der amerikanische Autokonzern schreibt tiefrote Zahlen. Ein Grund dafür ist der schlechte Absatz des neuen Modells Montana.</de>
-				<en>The American car company is deep in the red. One reason for this is the poor sales of the new Montana model.</en>
+				<de>Der amerikanische Autokonzern schreibt tiefrote Zahlen. Ein Grund dafür ist der schlechte Absatz der neuen Modelle.</de>
+				<en>The American car company is deep in the red. One reason for this is the poor sales of the new models.</en>
 			</description>
 			<effects>
-				<effect trigger="happen" type="triggernews" news="1135edbe-daf4-4ed7-8817-b352b9ee7442" time="1,8,12" />
+				<effect trigger="happen" type="triggernews" news="carStrike_1" time="1,8,12" />
 			</effects>
 			<data genre="3" price="1.0" quality="19" />
 			<availability year_range_from="-1" year_range_to="-1" />
+			<variables>
+				<brand>
+					<de>Fort|Bucki|Admiral Motors|Lilaccats|Abraham|Evade</de>
+				</brand>
+				<jobs>
+					<de>4.000|5.000|6.000|7.500</de>
+					<en>4,000|5,000|6,000|7,500</en>
+				</jobs>
+			</variables>
+			
 		</news>
-		<news id="2f64517a-f2d6-4720-a195-6a35cc6e72c6_1" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="0" creator="">
+		<news id="carStrike_1" thread_id="carStrike" type="2">
 			<title>
-				<de>Fort schreibt Verluste</de>
-				<en>Fort records losses</en>
+				<de>${brand} will ${jobs} Stellen streichen</de>
+				<en>${brand} to cut ${jobs} jobs</en>
 			</title>
 			<description>
-				<de>Der amerikanische Autokonzern schreibt tiefrote Zahlen. Ein Grund dafür ist der schlechte Absatz des neuen Modells Esquart.</de>
-				<en>The American car company is deep in the red. One reason for this is the poor sales of the new Esquart model.</en>
+				<de>Der Amerikanische Autokonzern will aufgrund der hohen Verluste ${jobs} Mitarbeiter entlassen.</de>
+				<en>The American car company plans to lay off ${jobs} employees due to the high losses.</en>
 			</description>
-			<effects>
-				<effect trigger="happen" type="triggernews" news="1135edbe-daf4-4ed7-8817-b352b9ee7442" time="1,8,12" />
-			</effects>
-			<data genre="3" price="1.0" quality="19" />
-			<availability year_range_from="-1" year_range_to="1981" />
-		</news>
-		<news id="2f64517a-f2d6-4720-a195-6a35cc6e72c6_2" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="0" creator="">
-			<title>
-				<de>Fort schreibt Verluste</de>
-				<en>Fort records losses</en>
-			</title>
-			<description>
-				<de>Der amerikanische Autokonzern schreibt tiefrote Zahlen. Ein Grund dafür ist der schlechte Absatz des neuen Modells Suerrah.</de>
-				<en>The American car company is deep in the red. One reason for this is the poor sales of the new Suerrah model.</en>
-			</description>
-			<effects>
-				<effect trigger="happen" type="triggernews" news="1135edbe-daf4-4ed7-8817-b352b9ee7442" time="1,8,12" />
-			</effects>
-			<data genre="3" price="1.0" quality="19" />
-			<availability year_range_from="1982" year_range_to="1991" />
-		</news>
-		<news id="2f64517a-f2d6-4720-a195-6a35cc6e72c6_3" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="0" creator="">
-			<title>
-				<de>Fort schreibt Verluste</de>
-				<en>Fort records losses</en>
-			</title>
-			<description>
-				<de>Der amerikanische Autokonzern schreibt tiefrote Zahlen. Ein Grund dafür ist der schlechte Absatz des neuen Modells Mardeo.</de>
-				<en>The American car company is deep in the red. One reason for this is the poor sales of the new Mardeo model.</en>
-			</description>
-			<effects>
-				<effect trigger="happen" type="triggernews" news="1135edbe-daf4-4ed7-8817-b352b9ee7442" time="1,8,12" />
-			</effects>
-			<data genre="3" price="1.0" quality="19" />
-			<availability year_range_from="1992" year_range_to="2002" />
-		</news>
-		<news id="1135edbe-daf4-4ed7-8817-b352b9ee7442" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="2" creator="">
-			<title>
-				<de>Fort will 5.000 Stellen streichen</de>
-				<en>Fort to cut 5,000 jobs</en>
-			</title>
-			<description>
-				<de>Der Amerikanische Autokonzern will aufgrund der hohen Verluste 5.000 Mitarbeiter entlassen.</de>
-				<en>The American car company plans to lay off 5,000 employees due to the high losses.</en>
-			</description>
-			<effects>
-				<effect trigger="happen" type="triggernews" news="5345cee0-138e-4531-a239-71015a8ca909" time="2,1,1,8,11" />
-			</effects>
 			<data genre="3" price="1.0" quality="49" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
-		<news id="5345cee0-138e-4531-a239-71015a8ca909" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="2" creator="">
-			<title>
-				<de>Fort: Mitarbeiter streiken</de>
-				<en>Fort: workers on strike</en>
-			</title>
-			<description>
-				<de>In mehreren Fort Werken legten die Angestellten die Arbeit nieder und protestieren nun gegen die geplanten 5.000 Entlassungen.</de>
-				<en>Employees at several Fort plants walked off the job and are now protesting the planned 5,000 layoffs.</en>
-			</description>
-			<effects>
-				<effect trigger="happen" type="triggernews" news="d3ca7812-9b3e-41e5-852c-e4f4ef045a06" time="2,2,3,8,18" />
-			</effects>
-			<data genre="0" price="1.0" quality="29" />
-			<availability year_range_from="-1" year_range_to="-1" />
-		</news>
-		<news id="d3ca7812-9b3e-41e5-852c-e4f4ef045a06" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="2" creator="">
-			<title>
-				<de>Fort: Verhandlungen geplant</de>
-				<en>Fort: negotiations planned</en>
-			</title>
-			<description>
-				<de>Der amerikanische Autokonzern will mit Arbeitnehmervertretern verhandeln, um die Streiks abzuwenden.</de>
-				<en>The American car manufacturer wants to negotiate with employee representatives in order to avert strikes.</en>
-			</description>
-			<effects>
-				<effect trigger="happen" type="triggernews" news="d3ca7812-9b3e-41e5-852c-e4f4ef045aff-2" time="2,1,1,9,17" />
-			</effects>
-			<data genre="0" price="1.0" quality="35" />
-			<availability year_range_from="-1" year_range_to="-1" />
-		</news>
-		<news id="d3ca7812-9b3e-41e5-852c-e4f4ef045aff-2" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="2" creator="">
-			<title>
-				<de>Fort: Verhandlungen gescheitert</de>
-				<en>Fort: negotiations failed</en>
-			</title>
-			<description>
-				<de>Der amerikanische Autokonzern beharrt auf 4000 Entlassungen. Ein Mitarbeiter dazu: „Diese Kapitalisten, das lassen wir uns nicht gefallen.“</de>
-				<en>The American car company insists on 4000 layoffs. One employee commented: "These capitalists, we're not going to put up with that."</en>
-			</description>
-			<effects>
-				<effect trigger="happen" type="triggernews" news="d3ca7812-9b3e-41e5-852c-e4f4ef045aff-3" time="1,9,15" />
-			</effects>
-			<data genre="0" price="1.0" quality="30" />
-			<availability year_range_from="-1" year_range_to="-1" />
-		</news>
-		<news id="d3ca7812-9b3e-41e5-852c-e4f4ef045aff-3" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="2" creator="">
-			<title>
-				<de>Fahrzeuge bei Fort demoliert</de>
-				<en>Vehicles demolished at Fort</en>
-			</title>
-			<description>
-				<de>Mehrere Luxuslimousinen des Vorstandes sind letzte Nacht von vermummten Personen demoliert worden. Die Polizei tappt bisher im Dunkeln.</de>
-				<en>Several luxury limousines belonging to the Board of Management were demolished last night by hooded persons. The police are so far in the dark.</en>
-			</description>
-			<effects>
-				<effect trigger="happen" type="triggernews" news="d3ca7812-9b3e-41e5-852c-e4f4ef045aff-4" time="2,1,1,8,12" />
-			</effects>
-			<data genre="0" price="1.0" quality="38" />
-			<availability year_range_from="-1" year_range_to="-1" />
-		</news>
-		<news id="d3ca7812-9b3e-41e5-852c-e4f4ef045aff-4" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="2" creator="">
-			<title>
-				<de>Fort: Neue Gespräche geplant</de>
-				<en>Fort: new negotiations planned</en>
-			</title>
-			<description>
-				<de>Der Vorstand ist völlig überraschend zu neuen Verhandlungsgesprächen bereit. „Wir wollen wieder in Ruhe Autos herstellen“, so der Vorstandschef.</de>
-				<en>In a complete surprise, the Board of Management is ready for new negotiation talks. "We want to produce cars again in peace," says the CEO.</en>
-			</description>
-			<effects>
-				<effect trigger="happen" type="triggernews" news="d3ca7812-9b3e-41e5-852c-e4f4ef045aff-5" time="1,6,11" />
-			</effects>
-			<data genre="0" price="1.0" quality="28" />
-			<availability year_range_from="-1" year_range_to="-1" />
-		</news>
-		<news id="d3ca7812-9b3e-41e5-852c-e4f4ef045aff-5" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="2" creator="">
-			<title>
-				<de>Einigung bei Fort</de>
-				<en>Agreement at Fort</en>
-			</title>
-			<description>
-				<de>Der Vorstand und die Arbeitnehmervertreter des amerikanischen Autokonzerns einigten sich so eben auf 2500 Entlassungen. Beide Seiten sind zufrieden.</de>
-				<en>The Board of Management and employee representatives of the American car giant have just reached agreement to lay off 2,500 people. Both sides are satisfied.</en>
-			</description>
-			<effects />
-			<data genre="0" price="1.0" quality="51" />
-			<availability year_range_from="-1" year_range_to="-1" />
-		</news>
+
 
 		<news id="32617459-a2eb-412a-87c9-0411314c0694" thread_id="24f462b9-bac5-499e-ae2d-780f225872b1" type="0" creator="">
 			<title>

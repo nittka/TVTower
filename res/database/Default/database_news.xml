@@ -298,6 +298,7 @@
 			<data genre="4" price="1.0" quality="48" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO andere Stadt, andere Opfer-->
 		<news id="7859dc7a-a913-459e-bddc-4f963ac70868" thread_id="08b4660d-4f7f-4aca-b03d-edfe271fb7e4" type="0" creator="">
 			<title>
 				<de>UFO in London gelandet!</de>
@@ -386,6 +387,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="4" price="1.0" quality="19" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="91881279-bf29-49bd-9a0b-c98c36f8ceaa" thread_id="0acccc29-1ef7-4613-8f78-1c0ad3b601e5" type="0" creator="">
 			<title>
 				<de>Neid-Reiter-Auto auf den Schrott?</de>
@@ -444,6 +446,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="1" price="0.8" quality="21" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--Alternativen möglich - Steuer kommt nicht, Steuer kommt und macht "Abschaffung" möglich"...-->
 		<news id="6bba8dff-b5da-40b1-9db8-0e3cc655c14b" thread_id="0f4bf47b-dd51-4c3e-8d44-47ed0908ae37" type="0" creator="">
 			<title>
 				<de>Politiker fordern WiSim-Steuer</de>
@@ -518,6 +521,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
 
+		<!--TODO zusammenfassen?, andere Stadt, anderes Tier, anderer Schaden-->
 		<news id="1b15ca2e-e303-4863-9173-137eff033d7c_chemnitz" thread_id="1e6aa012-4bb1-44f3-82ea-c2d70f05b5f8" type="0" creator="">
 			<title>
 				<de>Nashorn aus Zoo entlaufen</de>
@@ -730,6 +734,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
 
+		<!--TODO andere Automarken, andere Zahlen-->
 		<news id="2f64517a-f2d6-4720-a195-6a35cc6e72c6" thread_id="1f721fc7-32d1-4c82-8f05-6a20393dba8e" type="0" creator="">
 			<title>
 				<de>Fort schreibt Verluste</de>
@@ -894,6 +899,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
 
+		<!--TODO flags 2-->
 		<news id="32617459-a2eb-412a-87c9-0411314c0694" thread_id="24f462b9-bac5-499e-ae2d-780f225872b1" type="0" creator="">
 			<title>
 				<de>Automaut kommt</de>
@@ -907,6 +913,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="0" price="1.0" quality="68" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="a8356756-4d49-42db-9b36-b91da8a0539f" thread_id="2c8a146f-9700-4ad0-ae4a-9328f7c00912" type="0" creator="">
 			<title>
 				<de>300-Meter-Grenze geknackt</de>
@@ -920,6 +927,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="2" price="1.0" quality="29" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="094806da-5113-4b57-b09a-c0639ebc20f9" thread_id="3af0567a-bc40-43f0-94c1-f2e1cefb2238" type="0" creator="">
 			<title>
 				<de>Finanzminister: Koalas her!</de>
@@ -1008,6 +1016,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="0" price="1.0" quality="28" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO variables - rising, falling, difference compared varies-->
 		<news id="53d11d51-473e-499d-91dc-5cd59fb7cf34" thread_id="4234e2b1-3938-40df-8855-8f730cdd1d01" type="0" creator="">
 			<title>
 				<de>Arbeitslosenquote sinkt</de>
@@ -1021,6 +1030,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="0" price="1.0" quality="29" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO turn into thread - Einführung mit Folgen..., keine Einführung-->
 		<news id="679a06d6-ade8-40fa-9770-eb3c31ef75ec" thread_id="49165cd6-34e3-4d00-8afd-f6eb3ae808ef" type="0" creator="">
 			<title>
 				<de>Flaschensammler zur Kasse gebeten?</de>
@@ -1131,6 +1141,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="4" price="1.0" quality="39" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO variables, country, person, hit by what-->
 		<news id="67f49f75-14d8-495d-83cf-f36ba136bb9c" thread_id="5c46bb57-f494-4986-ac5a-76061dae1399" type="0" creator="">
 			<title>
 				<de>Priester von Statue erschlagen</de>
@@ -1144,6 +1155,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="0" price="1.0" quality="9" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO varying results? varying descriptions-->
 		<news id="2c217224-62fd-4583-b457-1c69c813aff6" thread_id="5d832597-6cdc-4bfe-9213-0a82cd45b130" type="0" creator="">
 			<title>
 				<de>Fußball: TV-Köche vs. Nationalmannschaft</de>
@@ -1188,6 +1200,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="2" price="1.05" quality="39" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="d28c5997-c17c-4b68-9289-773617b62e58" thread_id="60185c09-38ec-4c44-a884-ed76b8bca258" type="0" creator="">
 			<title>
 				<de>Shanghai Hotel wird aufgelöst</de>
@@ -1289,6 +1302,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="0" price="1.0" quality="49" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO variants with other sports-->
 		<news id="e534c0e3-0f37-4e37-92f1-7c2796168572" thread_id="67c8a17b-d314-4016-bf94-2c2b079912af" type="0" creator="">
 			<title>
 				<de>Schwimmer hat Wasserallergie</de>
@@ -1315,6 +1329,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="3" price="1.0" quality="29" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="df3f342a-6bb2-4445-9f77-2765d51a8187" thread_id="769c4c90-9ddc-4c72-8ad7-1850f0c95109" type="0" creator="">
 			<title>
 				<de>Tele-Komm schafft analog ab</de>
@@ -1328,6 +1343,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="3" price="1.0" quality="39" />
 			<availability year_range_from="1995" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="df3f342a-6bb2-4445-9f77-2765d51a8187_2" thread_id="769c4c90-9ddc-4c72-8ad7-1850f0c95109" type="0" creator="">
 			<title>
 				<de>Tele-Komm schafft Wählscheibe ab</de>
@@ -1341,6 +1357,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="3" price="1.0" quality="39" />
 			<availability year_range_from="-1" year_range_to="1994" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="bc2475d4-e45d-484d-9095-16e2c06bea72" thread_id="7c62ccae-017a-4db9-872f-dfc75ddd4b4c" type="0" creator="">
 			<title>
 				<de>Alton neuer Programmchef bei Pro9</de>
@@ -1354,6 +1371,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="1" price="0.7" quality="29" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO other combinations?-->
 		<news id="d5835942-1658-4140-9272-2450165344de" thread_id="81ef8cbc-3208-4786-aa0d-6d6f824e79ca" type="0" creator="">
 			<title>
 				<de>Caesar war Gallier!</de>
@@ -1367,6 +1385,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="3" price="1.0" quality="29" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="68923a81-fdf8-4416-a85b-c943850b9b9a" thread_id="8539de3d-c301-4376-9763-2e0f1f2a6d9f" type="0" creator="">
 			<title>
 				<de>Grüner Punkt wird aufgegeben</de>
@@ -1393,6 +1412,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="5" price="1.0" quality="58" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2, other bands?-->
 		<news id="27a9048d-2066-404a-8a8e-aceb1ad6d84a" thread_id="8e1eca41-5270-4fc1-99a6-c2404809e276" type="0" creator="">
 			<title>
 				<de>Die Roten Rosen geben Abschiedstournee</de>
@@ -1406,6 +1426,7 @@ Her normal body size is expected to be reached in a week.</en>
 			<data genre="1" price="0.7" quality="29" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO other persons other places-->
 		<news id="bd674ac6-d8be-4b53-8023-185adfeaf90c" thread_id="8e65fd80-587e-4c17-a12f-09e368dca29e" type="0" creator="">
 			<title>
 				<de>Joachim Bretzel eröffnet Kaufhaus</de>
@@ -1421,6 +1442,7 @@ A NASA pot set will also be raffled off.</en>
 			<data genre="1" price="1.0" quality="14" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO mehr Gründe ausdenken-->
 		<news id="22e00cc1-288d-4405-815b-51da1e25f6e5" thread_id="902e3964-abe0-41cd-8f80-18a09e7e4aea" type="0" creator="">
 			<title>
 				<de>Rauchen wird teurer</de>
@@ -1434,6 +1456,7 @@ A NASA pot set will also be raffled off.</en>
 			<data genre="0" price="0.7" quality="62" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO auch Drehbuchvorlagen, auf Variablen hinweisen-->
 		<news id="f82cdc27-72a8-4007-94ce-8b94c15eeb7d" thread_id="903482a4-19ea-41d4-9c1c-08edd2b35961" type="0" creator="">
 			<title>
 				<de>Kein Voranschreiten bei TVT</de>
@@ -1447,6 +1470,7 @@ A NASA pot set will also be raffled off.</en>
 			<data genre="4" price="1.0" quality="45" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO weitere Städte, Alternativen - Demonstranten ziehen ab-->
 		<news id="1a4d7fd8-855a-47e4-871a-dc72eb4680ba" thread_id="94e573ec-1350-405c-b2f6-8684958e6e8b" type="0" creator="">
 			<title>
 				<de>G8-Gipfel in 3 Tagen</de>
@@ -1522,7 +1546,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="0" price="1.0" quality="39" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
-
+		<!--TODO alternative - Schwein getroffen-->
 		<news id="de78d446-a89c-4281-b018-a2c6f8975211" thread_id="9707f767-9129-46ea-84d2-a4870897fdfb" type="0" creator="">
 			<title>
 				<de>Wildschwein-Randale in Schrebergärten</de>
@@ -1566,7 +1590,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="4" price="0.7" quality="39" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
-
+		<!--TODO andere Vereine?-->
 		<news id="newsevent-unknown-preyts-ep1" thread_id="newsevent-unknown-preyts" type="0" creator="">
 			<title>
 				<de>Preyts neuer Trainer in Berlin?</de>
@@ -1640,7 +1664,6 @@ Demonstrations are expected again this year.</en>
 			<data genre="2" price="1.0" quality="30" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
-
 		<news id="53769295-e71f-4cbc-a127-3e3cfb70b394" thread_id="a3e86722-1b9a-4cf4-991f-a7da7d16872b" type="0" creator="">
 			<title>
 				<de>Rotwein gesund</de>
@@ -1654,6 +1677,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="4" price="0.7" quality="58" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO andere Kunstwerke?-->
 		<news id="db23af24-bf5c-42d3-8567-fa7b2c1a4e3f" thread_id="a5ba32a7-cedc-463d-9cf9-fb628c7a7fb1" type="0" creator="">
 			<title>
 				<de>Kunstraub im Louvre</de>
@@ -1720,6 +1744,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="3" price="1.0" quality="33" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO andere Regionen-->
 		<news id="ab0b9817-e9af-41f1-a5f1-5c83a4c974ea" thread_id="b22b0ecb-78f4-4bfa-a3dd-19cf475d994c" type="0" creator="">
 			<title>
 				<de>Hurrikanwarnung im Schwarzwald</de>
@@ -1733,6 +1758,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="4" price="0.7" quality="39" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO andere Sportarten-->
 		<news id="053b3454-01b7-4e55-9aaa-06e03dd67e12" thread_id="b2b0eae0-e095-4d99-ac01-cb1ff6c98f5c" type="0" creator="">
 			<title>
 				<de>Feministen boykotieren Beachvolleyball</de>
@@ -1746,6 +1772,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="2" price="0.7" quality="40" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="d824c05e-00fc-4d4f-a1cd-40a8e7a42085" thread_id="b504e69a-721b-4c1c-838c-fdbd8684dd45" type="0" creator="">
 			<title>
 				<de>Sono Nobelpreisträger</de>
@@ -1759,6 +1786,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="0" price="0.5" quality="58" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="6898a824-d53c-483b-a9c1-80a22129893b" thread_id="b54104bd-758d-4b1b-88e5-77a4816c6754" type="0" creator="">
 			<title>
 				<de>Lottospielen strafbar</de>
@@ -1772,6 +1800,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="0" price="0.5" quality="39" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO weitere Varianten?-->
 		<news id="9e4efc53-e374-4260-9bf6-e3265f6df566" thread_id="b7c32373-4781-4523-97ec-8398933fc8c3" type="0" creator="">
 			<title>
 				<de>Lotto-Jackpot geknackt</de>
@@ -1841,6 +1870,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="3" price="0.7" quality="72" />
 			<availability year_range_from="1999" year_range_to="-1" />
 		</news>
+		<!--TODO andere Varianten möglich?-->
 		<news id="d2b527a3-3181-4cbc-baa2-7bd4c7503a74_1" thread_id="baadc4ea-796b-44a2-b4cb-d333f01516ea_1" type="0" creator="">
 			<title>
 				<de>Straßenfeger findet 1.000 Mark</de>
@@ -1897,6 +1927,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="4" price="1.0" quality="19" />
 			<availability year_range_from="2002" year_range_to="-1" />
 		</news>
+		<!--TODO andere Label, andere Gründe; eigentlich flags 2-->
 		<news id="4177ebd7-888e-4df0-97bd-c74109e81616" thread_id="bae6336f-1755-4619-96b8-9b66f9ff6c7a" type="0" creator="">
 			<title>
 				<de>C&amp;B bankrott</de>
@@ -1923,7 +1954,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="4" price="1.0" quality="14" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
-
+		<!--TODO Altenative für Landtagswahlen?-->
 		<news id="34977b2a-b976-48f8-8254-001ebe2263f1" thread_id="c6a7d19b-eab1-4fc4-87eb-c9b4291e6778" type="0" creator="">
 			<title>
 				<de>Wahlen in Deutschland</de>
@@ -2027,6 +2058,7 @@ Demonstrations are expected again this year.</en>
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
 
+		<!--TODO altenative Orte, Stärke, Vermisstenzahlen-->
 		<news id="99fe6727-f9ea-4a1d-89b5-928a655b1695" thread_id="c82d429c-fa85-4771-b661-7181b4607c9f" type="0" creator="">
 			<title>
 				<de>Schweres Erdbeben in San Francisco</de>
@@ -2175,6 +2207,7 @@ Demonstrations are expected again this year.</en>
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
 
+		<!--TODO Altenative, andere Städte, andere Lokalitäten-->
 		<news id="64d0b36d-2dda-4ab5-af7f-e9087c35e1ea" thread_id="ccb647c9-025f-4a00-876b-0b95ea303d7c" type="0" creator="">
 			<title>
 				<de>Massenschlägerei in Berliner Diskothek</de>
@@ -2261,6 +2294,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="3" price="1.0" quality="29" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO availability Sommer, Alternative NAchrichten für andere Verkaugsschlager-->
 		<news id="11dc4748-f11f-45b6-9a4e-b2dfa6b8abfd" thread_id="d33d8133-e1a8-4660-a1c8-fc2272fb8448" type="0" creator="">
 			<title>
 				<de>Kohlegrills Sommer-Verkaufsschlager</de>
@@ -2274,6 +2308,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="4" price="1.1" quality="12" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="a6ac4b6c-83a0-433a-9336-c7256b6e3165" thread_id="d4c54bd0-cecf-4f40-bb10-7cda64543f3d" type="0" creator="">
 			<title>
 				<de>Tageszeitungen werden abgeschafft</de>
@@ -2287,6 +2322,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="3" price="1.0" quality="39" />
 			<availability year_range_from="1993" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2; obige Alternative deaktivieren-->
 		<news id="a6ac4b6c-83a0-433a-9336-c7256b6e3165_2" thread_id="d4c54bd0-cecf-4f40-bb10-7cda64543f3d" type="0" creator="">
 			<title>
 				<de>Tageszeitungen werden abgeschafft</de>
@@ -2300,6 +2336,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="3" price="1.0" quality="39" />
 			<availability year_range_from="1982" year_range_to="1992" />
 		</news>
+		<!--TODO andere Spieler?-->
 		<news id="a008bb9e-8e06-4b59-84ff-5bd46f3bc1d2" thread_id="d89029e7-9fa4-43d0-9f59-9704c818e63e" type="0" creator="">
 			<title>
 				<de>Michel Bollock will weg</de>
@@ -2374,6 +2411,7 @@ Demonstrations are expected again this year.</en>
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
 
+		<!--TODO andere Schauspieler, alternative Strafzeiten-->
 		<news id="3a5e6a8d-a0ee-4175-ba92-a5bada7cf291" thread_id="d8ca951a-2240-488a-8913-ddb5b75c8add" type="0" creator="">
 			<title>
 				<de>Semmelgerste erwischt - 3,6 Promille</de>
@@ -2533,7 +2571,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="0" price="0.7" quality="48" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
-
+		<!--TODO alternative Verläufe? Verurteilung zu regelmäßigen Patchen, Sozialdienst-->
 		<news id="e730d750-5b8f-4f10-a7c5-86936521de82" thread_id="e6be4f49-d79e-4096-97ff-2cef4795a10b" type="0" creator="">
 			<title>
 				<de>Programmierer klaut bei Beate Ohse</de>
@@ -2592,7 +2630,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="4" price="0.7" quality="48" />
 			<availability year_range_from="1996" year_range_to="-1" />
 		</news>
-
+		<!--TODO mit anderer zusammenfassen-->
 		<news id="e730d750-5b8f-4f10-a7c5-86936521de82_2" thread_id="e6be4f49-d79e-4096-97ff-2cef4795a10b_2" type="0" creator="">
 			<title>
 				<de>Programmierer klaut bei Beate Ohse</de>
@@ -2652,6 +2690,7 @@ Demonstrations are expected again this year.</en>
 			<availability year_range_from="-1" year_range_to="1995" />
 		</news>
 
+		<!--TODO andere Vögel, andere Regionen, Zeit-->
 		<news id="d9aa67c1-5aa3-4519-9cc2-ef8e1a769ae5" thread_id="e7afb16c-023e-47d8-a23c-8f45efa02854" type="0" creator="">
 			<title>
 				<de>Grünspecht in der Eifel gesichtet</de>
@@ -2782,6 +2821,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="0" price="1.0" quality="70" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO alternative Produkte?-->
 		<news id="213666dc-f4d5-496c-8e1f-8761827cb7b1" thread_id="f4c775ab-ab54-4ef3-93e7-109e3a7035ee" type="0" creator="">
 			<title>
 				<de>Teelichterpreis auf Rekordhoch</de>
@@ -2795,6 +2835,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="4" price="1.0" quality="19" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2/alternative Filmnamen...-->
 		<news id="bb461721-455c-4b8b-b45f-1465c7700644" thread_id="f5f7219e-7144-49de-adc0-19a32c81642c" type="0" creator="" comment="TODO: Mertel vs Murkel">
 			<title>
 				<de>Bundeskanzler lehnt Filmhauptrolle ab</de>
@@ -2821,6 +2862,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="1" price="1.0" quality="29" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2-->
 		<news id="69190830-8d76-432b-8217-ddcc685d0466" thread_id="fdf31ef7-053f-41b2-9ac2-e92b4f23da48" type="0" creator="">
 			<title>
 				<de>MacGeifer-Satire in Produktion</de>
@@ -2834,6 +2876,7 @@ Demonstrations are expected again this year.</en>
 			<data genre="1" price="1.0" quality="35" />
 			<availability year_range_from="-1" year_range_to="-1" />
 		</news>
+		<!--TODO flags 2; Alternative Verläufe - anders überlegt; bei eigentlichem Comeback Deaktivieren der Hauptnachricht-->
 		<news id="182fc068-6f07-45be-bc60-5637ce50f6e4" thread_id="ffb5a2fd-d41c-4f8b-a3ec-546762485d47" type="0" creator="">
 			<title>
 				<de>Boris Wecker plant Come-back</de>

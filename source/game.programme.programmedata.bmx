@@ -481,6 +481,7 @@ Type TProgrammeData Extends TBroadcastMaterialSource {_exposeToLua}
 	'bitmask for all players whether they currently broadcast it
 	Field playersBroadcasting:Int
 	Field playersLiveBroadcasting:Int
+	Field daysSinceLastBroadcast:Int
 
 	Field maxTopicalityCache:Float {nosave}
 	Field maxTopicalityCacheCode:String {nosave}
@@ -1383,9 +1384,10 @@ Type TProgrammeData Extends TBroadcastMaterialSource {_exposeToLua}
 
 		Local timesBroadcastedValue:Int = GetTimesBroadcasted()
 
-		Local newCacheCode:String = timesBroadcastedValue + "_" + GetWorldTime().GetDayHour()
+		Local newCacheCode:String = timesBroadcastedValue + "_" + (GetWorldTime().GetDayHour() / 6)
 
 		If maxTopicalityCacheCode <> newCacheCode
+			print "calculate max top "+GetTitle() +" " + newCacheCode
 			Local age:Int = Max(0, GetWorldTime().GetYear() - GetYear())
 			Local res:Float = 1.0
 
@@ -1438,6 +1440,9 @@ Type TProgrammeData Extends TBroadcastMaterialSource {_exposeToLua}
 			Local timesBroadcastedInfluence:Float = timesBroadcasted * GetModifier(modKeyTopicality_TimesBroadcastedLS)
 
 			Local firstBroadcastInfluence:Float = 10 * (timesBroadcasted>0)
+			'if a broadcasted programme was not broadcasted for multiple days, regain max topicality
+			Local regainInfluence:Float = 0.0
+			If firstBroadcastInfluence > 0 And daysSinceLastBroadcast > 4 Then regainInfluence = Min(25, daysSinceLastBroadcast -  4)
 			Local notLiveInfluence:Float = 0.0
 			If IsLiveOnTape()
 				'Live programmes like sport matches should lose attractiveness after the first broadcast.
@@ -1470,7 +1475,7 @@ Type TProgrammeData Extends TBroadcastMaterialSource {_exposeToLua}
 				notLiveInfluence :* 0.50
 			EndIf
 
-			Local influencePercentage:Float = 0.01 * MathHelper.Clamp(weightAge * ageInfluence + notLiveInfluence + firstBroadcastInfluence + weightTimesBroadcasted * timesBroadcastedInfluence, 0, 100)
+			Local influencePercentage:Float = 0.01 * MathHelper.Clamp(weightAge * ageInfluence + notLiveInfluence + firstBroadcastInfluence + weightTimesBroadcasted * timesBroadcastedInfluence - regainInfluence, 0, 100)
 
 			maxTopicalityCache = 1.0 - THelper.ATanFunction(influencePercentage, 2)
 			'print GetTitle() +" age "+ age +" #br "+ timesBroadcastedValue +" ageInfl " +MathHelper.NumberToString(weightAge * ageInfluence) +" firstBrInfl "+ MathHelper.NumberToString(firstBroadcastInfluence) +" brInfl "+ MathHelper.NumberToString(weightTimesBroadcasted * timesBroadcastedInfluence) +" -> "+ MathHelper.NumberToString(maxTopicalityCache)
@@ -1640,6 +1645,7 @@ Type TProgrammeData Extends TBroadcastMaterialSource {_exposeToLua}
 
 	'override
 	Method RefreshTopicality:Float(refreshModifier:Float = 1.0) {_private}
+		daysSinceLastBroadcast:+ 1
 		If GetTopicality() < maxTopicalityCache 'getTopicality() updates topicality and maxTopicalityCache
 			'Local topOld:Float = topicality
 			Local genrePopMod:Float = MathHelper.Clamp(1.0 + GetGenreDefinition().GetPopularity().popularity / 100.0, 0.75, 1.25)

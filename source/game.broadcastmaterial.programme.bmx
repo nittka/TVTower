@@ -329,6 +329,7 @@ Type TProgramme Extends TBroadcastMaterialDefaultImpl {_exposeToLua="selected"}
 		'if someone can watch that movie, increase the aired amount
 		'for data and licence
 		data.SetTimesBroadcasted(data.GetTimesBroadcasted(owner)+1, owner)
+		data.daysSinceLastBroadcast = 0
 		licence.SetTimesBroadcasted(licence.GetTimesBroadcasted(owner)+1, owner)
 
 

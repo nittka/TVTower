@@ -1170,7 +1170,7 @@ endrem
 						'DEV_switchRoom(targetRoom)
 					'EndIf
 					If Not GetPlayer().GetFigure().IsInRoom(room)
-						If GameRules.devMode Or GameRules.devconfig.GetBool("DEV_ROOM_KEY_FAST_FORWARD", False)
+						If GameRules.devMode Or App.config.GetBool("roomKeyFastForward", False)
 							DEV_FastForward_TargetReached = False
 							__SwitchFastForward(True)
 						EndIf

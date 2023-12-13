@@ -205,7 +205,7 @@ Type TNewsEventCollection
 		Local scheduledCount:int = 0
 		Local happenOnStartNews:TNewsEvent[]
 		For local n:TNewsEventTemplate = EachIn GetNewsEventTemplateCollection().GetUnusedInitialTemplates()
-			If n.happenTime >= 0 and n.IsAvailableAtHappenTime()
+			If n And n.happenTime >= 0 and n.IsAvailableAtHappenTime()
 				local news:TNewsEvent = New TNewsEvent.InitFromTemplate(n)
 				If news
 					scheduledCount :+ 1
@@ -233,7 +233,7 @@ Type TNewsEventCollection
 		Local today:Int = GetWorldTime().GetDay()
 		For Local newsEvent:TNewsEvent = EachIn allnewsEvents.Values()
 			'not happened yet - should not happen
-			If Not newsEvent.HasHappened() Then Continue
+			If Not newsEvent Or Not newsEvent.HasHappened() Then Continue
 			'only interested in a specific genre?
 			If genre <> -1 And newsEvent.GetGenre() <> genre Then Continue
 
@@ -262,7 +262,7 @@ Type TNewsEventCollection
 
 		For Local newsEvent:TNewsEvent = EachIn newsEvents.Values()
 			'only interested in a specific genre?
-			If genre <> -1 And newsEvent.GetGenre() <> genre Then Continue
+			If Not newsEvent Or genre <> -1 And newsEvent.GetGenre() <> genre Then Continue
 
 			If newsEvent.HasHappened() And newsEvent.HasEnded()
 				toRemove :+ [newsEvent]
@@ -308,7 +308,7 @@ Type TNewsEventCollection
 		If Not _followingNewsEvents[genre+1]
 			_followingNewsEvents[genre+1] = CreateList()
 			For Local event:TNewsEvent = EachIn newsEvents.Values()
-				If event.newsType <> TVTNewsType.FollowingNews Then Continue
+				If Not event Or event.newsType <> TVTNewsType.FollowingNews Then Continue
 				'only interested in a specific genre?
 				If genre <> -1 And event.GetGenre() <> genre Then Continue
 
@@ -328,7 +328,7 @@ Type TNewsEventCollection
 			_upcomingNewsEvents[genre+1] = CreateList()
 			For Local event:TNewsEvent = EachIn newsEvents.Values()
 				'skip events already happened or not happened at all (-> "-1")
-				If event.HasHappened() Or event.happenedTime = -1 Then Continue
+				If Not event Or event.HasHappened() Or event.happenedTime = -1 Then Continue
 				'only interested in a specific genre?
 				If genre <> -1 And event.GetGenre() <> genre Then Continue
 
@@ -1163,7 +1163,7 @@ Type TGameModifierNews_ModifyAvailability Extends TGameModifierBase
 
 			'also modify "not yet happened" but existing news 
 			For Local newsEvent:TNewsEvent = EachIn GetNewsEventCollection().GetUpcomingNewsList()
-				If newsEvent.templateID = newsEventTemplate.GetID()
+				If newsEvent And newsEvent.templateID = newsEventTemplate.GetID()
 					newsEvent.SetBroadcastFlag(TVTBroadcastMaterialSourceFlag.NOT_AVAILABLE, enableBackup)
 					'refresh caches
 					GetNewsEventCollection()._InvalidateCaches()
@@ -1202,7 +1202,7 @@ Type TGameModifierNews_ModifyAvailability Extends TGameModifierBase
 			'           availabilities. An individually made available
 			'           newsevent would get their availability overridden!
 			For Local newsEvent:TNewsEvent = EachIn GetNewsEventCollection().GetUpcomingNewsList()
-				If newsEvent.templateID = newsEventTemplate.GetID()
+				If newsEvent And newsEvent.templateID = newsEventTemplate.GetID()
 					newsEvent.SetBroadcastFlag(TVTBroadcastMaterialSourceFlag.NOT_AVAILABLE, Not enable)
 					'refresh caches
 					GetNewsEventCollection()._InvalidateCaches()
@@ -1321,7 +1321,7 @@ Type TGameModifierNews_ModifyAttribute Extends TGameModifierBase
 		If newsEventTemplate
 			'modify value for all upcoming news based on this template
 			For Local newsEvent:TNewsEvent = EachIn GetNewsEventCollection().GetUpcomingNewsList()
-				If newsEvent.templateID = newsEventTemplate.GetID()
+				If newsEvent And newsEvent.templateID = newsEventTemplate.GetID()
 					WriteNewsEventValue(valueBackup, newsEvent)
 				EndIf
 			Next
@@ -1348,7 +1348,7 @@ Type TGameModifierNews_ModifyAttribute Extends TGameModifierBase
 		If newsEventTemplate
 			'modify value for all upcoming news based on this template
 			For Local newsEvent:TNewsEvent = EachIn GetNewsEventCollection().GetUpcomingNewsList()
-				If newsEvent.templateID = newsEventTemplate.GetID()
+				If newsEvent And newsEvent.templateID = newsEventTemplate.GetID()
 					valueBackup = ReadNewsEventValue(newsEvent)
 
 					WriteNewsEventValue(value, newsEvent)

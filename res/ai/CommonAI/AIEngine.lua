@@ -174,7 +174,8 @@ end
 
 function AIPlayer:Tick()
 	-- update every 5 ticks
-	if self.WorldTicks % 5 == 0 then
+	--changed to much higher value for fast games
+	if self.WorldTicks % 50 == 0 then
 		-- inform game about our priorities
 		-- do it here, to have a "live priority view"
 		local tasksPrioOrdered = SortTasksByPrio(self.TaskList)

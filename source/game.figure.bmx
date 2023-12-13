@@ -894,6 +894,10 @@ Type TFigure extends TFigureBase
 			'if GetTarget() then print " ... has target"
 		'endif
 
+		'TODO Nach der ursprünglichen Prüfung kann inRoom null geworden sein kann!!
+		if not inRoom Then print "NOT IN ROOM2"
+		if not inRoom or IsLeavingRoom() then return True
+
 		'=== CHECK IF LEAVING IS ALLOWED ===
 		'skip leaving if not allowed to do so
 		if not forceLeave and not CanLeaveRoom(inroom) then return False
@@ -945,7 +949,8 @@ Type TFigure extends TFigureBase
 
 		'do not fade when it is a fake room
 		fadeOnChangingRoom = True
-		if inRoom.ShowsOccupants() then fadeOnChangingRoom = False
+		if not inRoom THen print "NOT IN ROOM"
+		if Not inRoom Or inRoom.ShowsOccupants() then fadeOnChangingRoom = False
 
 		inRoom.BeginLeave(usedDoor, self, changingRoomTime)
 

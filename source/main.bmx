@@ -1251,11 +1251,15 @@ endrem
 				If room Then __GoToRoom(room)
 			EndIf
 		EndIf
-		If KeyManager.IsHit(KEY_5) Then GetGame().SetGameSpeed( 30 * 60 ) '30 game minutes per realtime second
-		If KeyManager.IsHit(KEY_6) Then GetGame().SetGameSpeed( 60 * 60 ) '60 game minutes per realtime second
-		If KeyManager.IsHit(KEY_7) And Not (KeyManager.IsDown(KEY_LSHIFT) OR KeyManager.IsDown(KEY_RSHIFT)) Then GetGame().SetGameSpeed( 120 * 60 )
-		If KeyManager.IsHit(KEY_8) Then GetGame().SetGameSpeed( 240 * 60 )
-		If KeyManager.IsHit(KEY_9) Then GetGame().SetGameSpeedPreset( 1 )
+'		If KeyManager.IsHit(KEY_5) Then __setSpeed(30, 60) '30 game minutes per realtime second
+		If KeyManager.IsHit(KEY_5) Then __setSpeed(60, 60) '60 game minutes per realtime second
+		If KeyManager.IsHit(KEY_6) Then __setSpeed(120, 120)
+		If KeyManager.IsHit(KEY_7) Then __setSpeed(240, 240)
+		If KeyManager.IsHit(KEY_8) Then __setSpeed(480, 480)
+		If KeyManager.IsHit(KEY_9)
+			GetGame().SetGameSpeedPreset( 1 )
+			GetDeltatimer().Init(60, 60, 60)
+		EndIf
 		If KeyManager.IsHit(KEY_0) Then GetGame().SetGameSpeed( 0 ) 'pause
 		If KeyManager.IsHit(KEY_Q) Then debugAudienceInfo.Toggle()
 
@@ -1306,6 +1310,11 @@ endrem
 				TAiBase.AiRunning = True
 			EndIf
 		EndIf
+
+		Function __setSpeed(speed:Int, updates:Int)
+			GetGame().SetGameSpeed(speed * 60 )
+			GetDeltatimer().Init(updates, 15, 5)
+		End Function
 	End Function
 
 

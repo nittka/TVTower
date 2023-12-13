@@ -127,6 +127,9 @@ Type TPersonBaseCollection Extends TGameObjectCollection
 '					If p.IsFictional() then Print p.GetFullName() + " OK"
 				EndIf
 
+				If Not map then throw "NO MAP!?!?!?"
+				If Not p.GetID() then throw "NO PERSON ID!?!?!?"
+
 				map.Insert(p.GetID(), p)
 				list.AddLast(p)
 				count :+ 1

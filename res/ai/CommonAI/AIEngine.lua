@@ -174,6 +174,7 @@ end
 
 function AIPlayer:Tick()
 	-- update every 5 ticks
+	--change to much higher value (or delete block) for fast games
 	if self.WorldTicks % 5 == 0 then
 		-- inform game about our priorities
 		-- do it here, to have a "live priority view"

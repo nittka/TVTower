@@ -343,7 +343,7 @@ Type TAward Extends TGameObject
 			Local modifier:TGameModifierBase
 			'increase image
 			modifier = GetGameModifierManager().CreateAndInit("ModifyChannelPublicImage", New TData.AddDouble("value", priceImage))
-			If modifier Then modifier.Run(New TData.AddInt("playerID", winningPlayerID) )
+			'If modifier Then modifier.Run(New TData.AddInt("playerID", winningPlayerID) )
 
 			'increase money
 			modifier = GetGameModifierManager().CreateAndInit("ModifyChannelMoney", New TData.AddInt("value", priceMoney))

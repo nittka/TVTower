@@ -132,18 +132,18 @@ function DefaultAIPlayer:initParameters()
 
 	if (self.Ventruesome == nil or self.Ventruesome <= 0) then
 		--Waghalsigkeit 3-8
-		self.Ventruesome = math.random(3,8)
+		self.Ventruesome = 5 --math.random(3,8)
 	end
 	if (self.NewsPriority == nil or self.NewsPriority <= 0) then
 		--Interesse an News/Geldausgabe fuer News
-		self.NewsPriority = math.random(4,8)
+		self.NewsPriority = 5 -- math.random(4,8)
 	end
 	if (self.ExpansionPriority == nil or self.ExpansionPriority <= 0) then
-		self.ExpansionPriority = math.random(3,8)
+		self.ExpansionPriority = 5 -- math.random(3,8)
 	end
 	if (self.BrainSpeed == nil or self.BrainSpeed <= 0) then
 		--Handlungsgeschwindigkeit
-		self.BrainSpeed = math.random(4,6)
+		self.BrainSpeed = 5 -- math.random(4,6)
 	end
 	--eagerness to start the next task
 	--randomizing this value only once is an extreme handicap for players with high values 
@@ -152,7 +152,7 @@ function DefaultAIPlayer:initParameters()
 	end
 
 	--for checking that the same parameters are still used after loading a saved game
-	self:LogDebug("initializing venturesome ".. self.Ventruesome.. " news ".. self.NewsPriority .." expansion ".. self.ExpansionPriority .." speed " .. self.BrainSpeed.." taskPrio "..self.startTaskAtPriority)
+	self:LogInfo("initializing venturesome ".. self.Ventruesome.. " news ".. self.NewsPriority .." expansion ".. self.ExpansionPriority .." speed " .. self.BrainSpeed.." taskPrio "..self.startTaskAtPriority)
 end
 
 function DefaultAIPlayer:initializePlayer()

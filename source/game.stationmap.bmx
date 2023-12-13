@@ -4141,16 +4141,9 @@ Type TStationBase Extends TOwnedGameObject {_exposeToLua="selected"}
 		'if constructionTime <  0
 		'	SetActivationTime( GetWorldTime().GetTimeGone()-1)
 		'else
-			If constructionTime <  0 Then constructionTime = 0
-
-			'next hour (+construction hours) at xx:00
-			If GetWorldTime().GetDayMinute(built + constructionTime * TWorldTime.HOURLENGTH) >= 5
-				SetActivationTime( GetWorldTime().GetTimeGoneForGameTime(0, 0, GetWorldTime().GetHour(built) + constructionTime + 1, 0))
-			'this hour (+construction hours) at xx:05
-			Else
-				SetActivationTime( GetWorldTime().GetTimeGoneForGameTime(0, 0, GetWorldTime().GetHour(built) + constructionTime, 5, 0))
-			EndIf
 		'endif
+
+		SetActivationTime( GetWorldTime().GetTimeGoneForGameTime(0, GetWorldTime().GetDay()+1, 0, 0))
 
 		If HasFlag(TVTStationFlag.PAID) Then Return True
 		If Not GetPlayerFinance(playerID) Then Return False

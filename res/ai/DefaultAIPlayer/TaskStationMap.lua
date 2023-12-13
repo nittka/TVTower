@@ -236,7 +236,7 @@ function JobAnalyseStationMarket:determineIntendedPositions()
 	local d = 2 * radius
 
 	--dx and dy are the deltas for the next antenna center in the same row
-	local dx = math.random(radius+radius/2,d)
+	local dx = d
 	local dy = math.sqrt(4 * radius ^ 2 - dx ^ 2)
 
 	--da and db are the deltas for the center of the start antenna in the next but one row
@@ -314,19 +314,6 @@ function JobAnalyseStationMarket:getBaseAntennaParameters()
 
 	--reduce radius - small overlap but decrease missed areas between 3 antennas
 	local radius = startStation.radius
-	if radius < 30 then
-		radius = radius -1
-	elseif radius < 40 then
-		radius = radius -2
-	elseif radius < 50 then
-		radius = radius -3
-	elseif radius < 60 then
-		radius = radius -4
-	elseif radius < 70 then
-		radius = radius -5
-	else
-		radius = radius -6
-	end
 
 	return {x=startStation.x; y=startStation.y; radius = radius}
 end

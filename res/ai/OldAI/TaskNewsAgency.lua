@@ -48,9 +48,6 @@ function TaskNewsAgency:Activate()
 	self.NewsAgencyJob = JobNewsAgency()
 	self.NewsAgencyJob.Task = self
 
-	self.IdleJob = AIIdleJob()
-	self.IdleJob.Task = self
-	self.IdleJob:SetIdleTicks( math.random(5,15) )
 	--self.LogLevel = LOG_TRACE
 end
 
@@ -64,11 +61,14 @@ function TaskNewsAgency:GetNextJobInTargetRoom()
 	end
 	if (self.NewsAgencyJob.Status ~= JOB_STATUS_DONE) then
 		return self.NewsAgencyJob
-	--elseif (self.IdleJob ~= nil and self.IdleJob.Status ~= JOB_STATUS_DONE) then
-	--	return self.IdleJob
 	end
 
-	self:SetDone()
+	local taskTime = getPlayer().minutesGone - self.StartTask
+	if taskTime < 7 then
+		self:SetIdle(7-taskTime)
+	else
+		self:SetDone()
+	end
 end
 
 
@@ -141,6 +141,7 @@ function TaskNewsAgency:BudgetSetup()
 	-- scribe to current affairs
 	local baseFee = TVT.GetNewsAbonnementFee(TVT.Constants.NewsGenre.CURRENTAFFAIRS, 1)
 	local tempAbonnementBudget = math.max(baseFee, self.BudgetWholeDay * 0.45)
+	--TODO ensure abonnement bugdet is not subtracted multiple times over the day
 	self.AbonnementBudget = tempAbonnementBudget
 	self.CurrentBudget = self.CurrentBudget - self.AbonnementBudget
 	self:LogTrace("BudgetSetup: AbonnementBudget: " .. self.AbonnementBudget .. "   - CurrentBudget: " .. self.CurrentBudget)
@@ -148,8 +149,9 @@ end
 
 
 function TaskNewsAgency:BudgetMaximum()
-	local money = TVT.GetMoney()
-	if money <= 500000 then
+	local player = getPlayer()
+	local money = player.money
+	if money <= 500000 or player.gameDay < 2 then
 		return math.max(50000, math.floor(money / 10))
 	elseif money < 1000000 then
 		return math.max(110000, math.floor(money / 10))
@@ -164,10 +166,10 @@ end
 function TaskNewsAgency:OnMoneyChanged(value, reason, reference)
 	reason = tonumber(reason)
 	if (reason == TVT.Constants.PlayerFinanceEntryType.PAY_NEWS) then
-		self:PayFromBudget(value)
+		self:PayFromBudget(math.abs(value))
 		self:CalculateFixedCosts()
 	elseif (reason == TVT.Constants.PlayerFinanceEntryType.PAY_NEWSAGENCIES) then
-		self:PayFromBudget(value)
+		self:PayFromBudget(math.abs(value))
 		self:CalculateFixedCosts()
 	end
 end
@@ -367,7 +369,7 @@ function JobNewsAgency:Tick()
 
 	if self.Task.CurrentBudget < 0 then
 		local player = getPlayer()
-		if player.Budget.CurrentFixedCosts > 120000 and TVT.GetMoney() > 150000 then
+		if player.Budget.CurrentFixedCosts > 120000 and player.money > 150000 then
 			--TODO with high fixed costs often there is a negative budget although there is money
 			self:LogDebug("raised news budget because there is money")
 			self.Task.CurrentBudget = 50000

@@ -9,6 +9,10 @@ _G["BudgetManager"] = class(KIDataObjekt, function(c)
 	c.BudgetOnLastUpdateBudget = 0
 	c.CurrentFixedCosts = 0
 
+	c.CurrentIncome = 0
+	c.CurrentExpense = 0
+	c.LastDayProfit = 0
+
 	c:ResetDefaults()
 end)
 
@@ -33,9 +37,24 @@ end
 function BudgetManager:Initialize()
 end
 
+function BudgetManager:GetLastDayProfit()
+	if self.LastDayProfit ~= nil then
+		return self.LastDayProfit
+	end
+	return 0
+end
+
 
 -- Method is run at the begin of each day
 function BudgetManager:CalculateNewDayBudget()
+	if self.CurrentIncome == nil then
+		self.CurrentIncome = 0
+		self.CurrentExpense = 0
+	end
+	self.LastDayProfit = self.CurrentIncome - self.CurrentExpense
+	self.CurrentIncome = 0
+	self.CurrentExpense = 0
+
 	--reset obsolete fields
 	self.SavingParts = 0.0
 	self.ExtraFixedCostsSavingsPercentage = 0
@@ -44,7 +63,7 @@ function BudgetManager:CalculateNewDayBudget()
 
 	self.IgnoreMoneyChange = true
 	self.CurrentLogLevel = LOG_INFO
-	local money = TVT.GetMoney()
+	local money = getPlayer().money
 	self:Log("=== Budget day " .. (TVT.GetDaysRun() + 1) .. " ===")
 	self:Log(string.left("Account balance:", 25, true) .. string.right(money, 10, true))
 
@@ -160,7 +179,6 @@ function BudgetManager:OnMoneyChanged(value, reason, reference)
 	if self.IgnoreMoneyChange == true then return end
 
 	reason = tonumber(reason)
-	value = tonumber(value)
 	self.CurrentLogLevel=LOG_DEBUG
 
 	if (reference ~= nil) then
@@ -180,7 +198,7 @@ function BudgetManager:OnMoneyChanged(value, reason, reference)
 
 
 	if renewBudget == true then
-		local budgetNow = TVT.GetMoney()
+		local budgetNow = getPlayer().money
 
 		--update budget when at least 15.000 Euro difference since last
 		--adjustment
@@ -188,6 +206,14 @@ function BudgetManager:OnMoneyChanged(value, reason, reference)
 			self:UpdateBudget(budgetNow)
 
 			self.BudgetOnLastUpdateBudget = budgetNow
+		end
+	end
+
+	if self.CurrentIncome ~= nil then
+		if value > 0 then 
+			self.CurrentIncome = self.CurrentIncome + value
+		else
+			self.CurrentExpense = self.CurrentExpense - value
 		end
 	end
 end

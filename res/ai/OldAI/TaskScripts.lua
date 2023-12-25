@@ -37,7 +37,7 @@ function TaskScripts:Activate()
 	self.JobStartProduction.Task = self
 	self.awardType = ""
 
-	if getPlayer().nextAwardType == TVT.Constants.AwardType.CULTURE then
+	if getPlayer().nextAwardType == TVT.Constants.AwardType.CULTURE or getPlayer().currentAwardType == TVT.Constants.AwardType.CULTURE then
 		self.awardType = "culture"
 	end
 
@@ -100,24 +100,22 @@ end
 
 function JobBuyScript:Prepare(pParams)
 	local player = getPlayer()
-	local stats = player.Stats.MovieQuality
+	local blocks = player.blocksCount
 	self.scriptMaxPrice = 30000
 	self.minPotential = 0.25
 	self.minAttractivity = 0.25
 	self.maxJobCount = 4
-	if stats ~= nil then
-		if stats.Values > 25 then
-			self.Task.BasePriority = 0.15
-			self.scriptMaxPrice = 1300000
-			self.minPotential = 0.5
-			self.minAttractivity = 0.6
-		elseif stats.Values > 15 then
-			self.maxJobCount = 6
-			self.Task.BasePriority = 0.07
-			self.scriptMaxPrice = 100000
-			self.minPotential = 0.35
-			self.minAttractivity = 0.4
-		end
+	if blocks > 64 then
+		self.Task.BasePriority = 0.15
+		self.scriptMaxPrice = 1300000
+		self.minPotential = 0.5
+		self.minAttractivity = 0.6
+	elseif blocks > 48 then
+		self.maxJobCount = 6
+		self.Task.BasePriority = 0.07
+		self.scriptMaxPrice = 100000
+		self.minPotential = 0.35
+		self.minAttractivity = 0.4
 	else
 		self.scriptMaxPrice = 0	
 	end
@@ -128,7 +126,7 @@ function JobBuyScript:Prepare(pParams)
 		self.minPotential = self.minPotential - 0.1
 		self.minAttractivity = self.minAttractivity - 0.1
 	end
-	self.scriptMaxPrice =  math.min(self.scriptMaxPrice, TVT:getMoney())
+	self.scriptMaxPrice =  math.min(self.scriptMaxPrice, player.money)
 	self:LogDebug("  maxPrice  ".. self.scriptMaxPrice .. " minPotential "..self.minPotential)
 end
 
@@ -202,6 +200,7 @@ function JobBuyScript:canBuy(script)
 	elseif script:GetProductionLimit() > 1 then
 		return false
 	elseif script:IsSeries() == 1 then
+		--TODO buy series only if enough money and not too much credit!!
 		if self.scriptMaxPrice > 100000 then
 			--not tested if check state fallback works for series with many episodes
 			if script:GetEpisodes() > 8 then
@@ -263,19 +262,46 @@ end
 
 function JobPlanProduction:Prepare(pParams)
 	local player = getPlayer()
-	local stats = player.Stats.MovieQuality
+	local reach = player.totalReach
+	local blocks = player.blocksCount
+	local money = player.money
+	local credit = MY.GetCredit(-1)
+	local lastDayProfit = player.Budget:GetLastDayProfit()
+	local fixedCosts = player.Budget.CurrentFixedCosts
+
 	self.MaxBudget = 140000
-	if stats ~= nil then
-		if stats.Values > 32 then
+	--TODO more conservative budget if not much money, even if many blocks (but bad average quality)
+	--TODOin AI-code handle series budget better
+	if player.money - credit < -1000000 then
+		self.MaxBudget = 0
+	elseif self.Task.awardType ~= "culture" and (player.money < 200000) then
+		self.MaxBudget = 0
+	elseif reach > 5000000 and ((credit <= 200000 and lastDayProfit > 0) or (money > fixedCosts)) then
+		if blocks > 72 then
 			self.MaxBudget = 1500000
-		elseif stats.Values > 25 then
+		elseif blocks > 64 then
 			self.MaxBudget = 750000
-		elseif stats.Values > 15 then
+		elseif blocks > 48 then
 			self.MaxBudget = 280000
 		end
-	else
-		self.MaxBudget = 0
+	elseif reach > 3000000 and (money > fixedCosts / 2) and (credit < 750000) then
+		if blocks > 72 then
+			self.MaxBudget = 750000
+		elseif blocks > 64 then
+			self.MaxBudget = 500000
+		elseif blocks > 48 then
+			self.MaxBudget = 280000
+		end
+	elseif reach > 2000000 then
+		if blocks > 72 then
+			self.MaxBudget = 500000
+		elseif blocks > 64 then
+			self.MaxBudget = 350000
+		elseif blocks > 48 then
+			self.MaxBudget = 250000
+		end
 	end
+	--self:LogInfo("production budget is "..self.MaxBudget)
 end
 
 function JobPlanProduction:Tick()

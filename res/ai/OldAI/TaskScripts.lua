@@ -73,7 +73,9 @@ function TaskScripts:GetNextJobInTargetRoom()
 end
 
 function TaskScripts:getStrategicPriority()
-	if getPlayer().currentAwardType == TVT.Constants.AwardType.CUSTOMPRODUCTION or getPlayer().nextAwardType == TVT.Constants.AwardType.CULTURE then
+	if getPlayer().hour > 18 then
+		return 0.0
+	elseif getPlayer().currentAwardType == TVT.Constants.AwardType.CUSTOMPRODUCTION or getPlayer().nextAwardType == TVT.Constants.AwardType.CULTURE then
 		if self.producedForSammy == false then
 			self.SituationPriority = SAMMY_SIT_PRIORITY
 			if self.awardType == "culture" and self.prodStatus == PROD_STATUS_BUY then
@@ -262,7 +264,7 @@ end
 
 function JobPlanProduction:Prepare(pParams)
 	local player = getPlayer()
-	local reach = player.totalReach
+	local receivers = player.totalReceivers
 	local blocks = player.blocksCount
 	local money = player.money
 	local credit = MY.GetCredit(-1)
@@ -276,7 +278,7 @@ function JobPlanProduction:Prepare(pParams)
 		self.MaxBudget = 0
 	elseif self.Task.awardType ~= "culture" and (player.money < 200000) then
 		self.MaxBudget = 0
-	elseif reach > 5000000 and ((credit <= 200000 and lastDayProfit > 0) or (money > fixedCosts)) then
+	elseif receivers > 5000000 and ((credit <= 200000 and lastDayProfit > 0) or (money > fixedCosts)) then
 		if blocks > 72 then
 			self.MaxBudget = 1500000
 		elseif blocks > 64 then
@@ -284,7 +286,7 @@ function JobPlanProduction:Prepare(pParams)
 		elseif blocks > 48 then
 			self.MaxBudget = 280000
 		end
-	elseif reach > 3000000 and (money > fixedCosts / 2) and (credit < 750000) then
+	elseif receivers > 3000000 and (money > fixedCosts / 2) and (credit < 750000) then
 		if blocks > 72 then
 			self.MaxBudget = 750000
 		elseif blocks > 64 then
@@ -292,7 +294,7 @@ function JobPlanProduction:Prepare(pParams)
 		elseif blocks > 48 then
 			self.MaxBudget = 280000
 		end
-	elseif reach > 2000000 then
+	elseif receivers > 2000000 then
 		if blocks > 72 then
 			self.MaxBudget = 500000
 		elseif blocks > 64 then

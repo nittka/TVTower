@@ -112,18 +112,20 @@ function TaskMovieDistributor:getStrategicPriority()
 	-- no money to buy things? skip even looking...
 	if getPlayer().money <= 50000 then
 		return 0.0
+	elseif getPlayer().hour > 18 then
+		return 0.5
 	end
 	return 1.0
 end
 
 function TaskMovieDistributor:BeforeBudgetSetup()
 	local player = getPlayer()
-	local totalReach = player.totalReach
+	local totalReceivers = player.totalReceivers
 	local maxTopBlocks = player.maxTopicalityBlocksCount
 	local blocks = player.blocksCount
 
 	self.BudgetWeight = 8
-	if blocks >= 36 and (totalReach==nil or totalReach <= 2500000) then
+	if blocks >= 36 and (totalReceivers==nil or totalReceivers  <= 2500000) then
 		--reduce budget for buying antenna
 		self.BudgetWeight = 2
 	elseif maxTopBlocks < 8 then
@@ -230,6 +232,8 @@ function JobBuyStartProgramme:Tick()
 		elseif v:GetQuality() < 0.07 or v:GetQualityRaw() < 0.15 then
 			--avoid the absolute trash :-)
 			self:LogDebug("IGNORING PROGRAMME (quality) "..v:getTitle())
+		elseif v.GetData().IsTrash() > 0 then
+			self:LogDebug("IGNORING PROGRAMME (trash) "..v:getTitle())
 		elseif (v:isPaid() > 0 or v:getTopicality() < 0.15 or v:GetGenre() == TVT.Constants.ProgrammeGenre.Horror or self.Task:IsErotic(v)) then
 			--prevent other problematic start programmes: call-in, horror, too old
 			self:LogDebug("IGNORING PROGRAMME (old, genre) "..v:getTitle())
@@ -529,16 +533,32 @@ function JobAppraiseMovies:AdjustMovieNiveau()
 		self.SeriesMaxPrice = movieBudget
 	end
 
+	self.MaxPricePerBlock = -1
+	if self.Task.blocksCount < 40 and player.money > 5000000 then
+		--restarted player, do not limit price per block
+	else
+		if (player.maxIncomePerSpot ~=nil and player.maxIncomePerSpot > 0) then self.MaxPricePerBlock = player.maxIncomePerSpot end
+	end
+	--TODO factor risk sensitive/depend on difficulty
+	--TODO make dynamic, increase if enough money/reach/available blocks
+	local maxTopBlocks = player.maxTopicalityBlocksCount
+	if maxTopBlocks > 6 then
+		self.MaxPricePerBlock = self.MaxPricePerBlock * 1.3
+		movieBudget = movieBudget * 0.7
+	else
+		self.MaxPricePerBlock = self.MaxPricePerBlock * 2
+	end
+
 	--TODO check quality gates
 	local ScopeMovies = maxQualityMovies - minQualityMovies
-	self.PrimetimeMovieMinQuality = math.max(0, math.round(minQualityMovies + (ScopeMovies * 0.75)))
-	self.DayMovieMinQuality = math.max(0, math.round(minQualityMovies + (ScopeMovies * 0.4)))
+	self.PrimetimeMovieMinQuality = math.max(0, math.round(minQualityMovies + (ScopeMovies * 0.70)))
+	self.DayMovieMinQuality = math.max(0, math.round(minQualityMovies + (ScopeMovies * 0.25)))
 
 	local ScopeSeries = maxQualitySeries - minQualitySeries
-	self.PrimetimeSeriesMinQuality = math.max(0, math.round(minQualitySeries + (ScopeSeries * 0.75)))
-	self.DaySeriesMinQuality = math.max(0, math.round(minQualitySeries + (ScopeSeries * 0.4)))
+	self.PrimetimeSeriesMinQuality = math.max(0, math.round(minQualitySeries + (ScopeSeries * 0.70)))
+	self.DaySeriesMinQuality = math.max(0, math.round(minQualitySeries + (ScopeSeries * 0.25)))
 
-	self:LogDebug("Adjusted movies niveau:  MovieMaxPrice=" .. math.floor(self.MovieMaxPrice) .."  PrimetimeMovieMinQuality=" .. self.PrimetimeMovieMinQuality .. "  DayMovieMinQuality=" .. self.DayMovieMinQuality)
+	self:LogDebug("Adjusted movies niveau:  MovieMaxPrice=" .. math.floor(self.MovieMaxPrice) .."  PrimetimeMovieMinQuality=" .. self.PrimetimeMovieMinQuality .. "  DayMovieMinQuality=" .. self.DayMovieMinQuality .. " MaxPricePerBlock=".. self.MaxPricePerBlock)
 	self:LogDebug("         series niveau:  SeriesMaxPrice=" .. math.floor(self.SeriesMaxPrice) .."  PrimetimeSeriesMinQuality=" .. self.PrimetimeSeriesMinQuality .. "  DaySeriesMinQuality=" .. self.DaySeriesMinQuality)
 end
 
@@ -587,7 +607,7 @@ function JobAppraiseMovies:AppraiseMovie(licence)
 
 	-- satisfied basic requirements?
 	if (licence.IsSingle() == 1) then
-		if (CheckMovieBuyConditions(licence, self.MovieMaxPrice, qualityGate)) then
+		if (CheckMovieBuyConditions(licence, self.MovieMaxPrice, self.MaxPricePerBlock, qualityGate)) then
 			pricePerBlockStats = stats.MoviePricePerBlockAcceptable
 			qualityStats = stats.MovieQualityAcceptable
 		else
@@ -596,7 +616,7 @@ function JobAppraiseMovies:AppraiseMovie(licence)
 			return
 		end
 	else
-		if (CheckMovieBuyConditions(licence, self.SeriesMaxPrice, qualityGate)) then
+		if (CheckMovieBuyConditions(licence, self.SeriesMaxPrice, self.MaxPricePerBlock, qualityGate)) then
 			pricePerBlockStats = stats.SeriesPricePerBlockAcceptable
 			qualityStats = stats.SeriesQualityAcceptable
 		else
@@ -623,6 +643,9 @@ function JobAppraiseMovies:AppraiseMovie(licence)
 	end
 	if licence.GetData().IsCulture() > 0 then
 		qualityFactor = qualityFactor * 1.3
+	end
+	if licence.GetData().IsTrash() > 0 then
+		qualityFactor = qualityFactor * 0.4
 	end
 	if licence.isLive() > 0 then
 		--TODO do not buy live licences
@@ -690,6 +713,7 @@ function JobBuyMovies:Tick()
 	--TODO not many licences - do not spend everything on new one
 	local maxPrice = self.Task.CurrentBargainBudget
 	local blocksCount = self.Task.blocksCount
+	local player = getPlayer()
 	if blocksCount > 0 and blocksCount < 72 then
 		if maxPrice > 250000 then
 			maxPrice = maxPrice * 0.5
@@ -698,7 +722,7 @@ function JobBuyMovies:Tick()
 		end
 		--TODO max price added to deal with restarting after bankruptcy
 		--problematic for series (price per block would be better), good threshold hard to determine
-		if getPlayer().money > 5000000 then
+		if player.money > 5000000 then
 			if blocksCount < 36 then 
 				maxPrice = math.min(maxPrice*2, 600000)
 			elseif blocksCount < 64 then 
@@ -726,6 +750,12 @@ function JobBuyMovies:Tick()
 
 						self.Task:PayFromBudget(priceToPay)
 						self.Task.CurrentBargainBudget = self.Task.CurrentBargainBudget - priceToPay
+
+						--do not spend all available money, if there are enough max-top blocks
+						--saves money for antennas
+						if blocksCount > 72 and player.maxTopicalityBlocksCount > 10 then
+							self.Task.CurrentBudget = 0
+						end
 					end
 				end
 			end

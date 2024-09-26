@@ -55,8 +55,9 @@ GetStationMapCollection().LoadMapFromXML("res/maps/germany/germany.xml", registr
 print "=== TEST 0 ================================================"
 for local lng:String = eachin ["de","en","pl"]
 	TLocalization.SetCurrentLanguage(lng)
-	'checkLicences()
+	checkLicences()
 	checkScripts()
+	checkNews()
 next
 
 
@@ -74,8 +75,8 @@ print "==================="
 print template.templateVariables.GetVariablesAsText()
 print "==================="
 endrem
-print GameScriptExpression.ParseLocalizedText(title, template, TLocalization.GetLanguageID("de")).ToString()
-print GameScriptExpression.ParseLocalizedText(title, template, TLocalization.GetLanguageID("en")).ToString()
+'print GameScriptExpression.ParseLocalizedText(title, template, TLocalization.GetLanguageID("de")).ToString()
+'print GameScriptExpression.ParseLocalizedText(title, template, TLocalization.GetLanguageID("en")).ToString()
 rem
 print "==================="
 print "template resolved variables:"

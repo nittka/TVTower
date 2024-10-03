@@ -17,7 +17,14 @@ Function startUI()
 End Function
 
 Function hasVariable:Int(s:String)
-	if s.contains("(Undefined") then return True 'conversion error
+	'TODO common marker for all expression errors would be helpful
+	'conversion errors
+	if s.contains("(Undefined") then return True
+	if s.contains("(undefined") then return True
+	if s.contains("(unhandled") then return True
+	if s.contains("Cannot handle") then return True
+	if s.contains("(cast number ") then return True
+	'indicators for unresolved variables 
 	if s.contains("${") then return True
 	if s.contains("[")
 		'known exceptions in series

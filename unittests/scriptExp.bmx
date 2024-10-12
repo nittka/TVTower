@@ -38,6 +38,7 @@ LoadDB(Null, basePath)
 'LoadDB(["database_scripts.xml"], basePath)
 'LoadDB(["database_people.xml"], basePath)
 'LoadDB(["database_programmes.xml"], basePath)
+'LoadDB(["scripts_new.xml"], basePath)
 'load from local xml?
 'New TDatabaseLoader().Load("test.scriptexpression_ng.db.xml")
 
@@ -89,12 +90,13 @@ print "==========================================================="
 
 rem
 
+
 print "=== TEST 2 ================================================"
 'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-fightagainst01")
 'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-subtilehumor01")
 'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-show1")
-GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-averagedayseries01")
 'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-test")
+'GetScriptCollection().GenerateFromTemplate("theId")
 
 local scriptNum:Int = 0
 for local script:TScript = eachin GetScriptCollection().GetAvailableScriptList()

@@ -38,7 +38,7 @@ LoadDB(Null, basePath)
 'LoadDB(["database_scripts.xml"], basePath)
 'LoadDB(["database_people.xml"], basePath)
 'LoadDB(["database_programmes.xml"], basePath)
-'LoadDB(["scripts_new.xml"], basePath)
+'LoadDB(["scripts_new.xml_"], basePath)
 'load from local xml?
 'New TDatabaseLoader().Load("test.scriptexpression_ng.db.xml")
 
@@ -46,98 +46,110 @@ LoadDB(Null, basePath)
 'load stationmap (AFTER time is set - so antenna share ratio is known)
 GetStationMapCollection().LoadMapFromXML("res/maps/germany/germany.xml", registryLoader.baseURI)
 
+'SeedRand(1000) 'same seed (replicate output!)
+
+
+checkDatabaseConsistency()
+'checkSimpleCsv()
+'checkScriptTemplateVariables()
+'checkScriptJobs()
+'checkCastReplacement()
+
 
 '
 ' =========================
 '
 
-'SeedRand(1000) 'same seed (replicate output!)
-
-print "=== TEST 0 ================================================"
-for local lng:String = eachin ["de","en","pl"]
-	TLocalization.SetCurrentLanguage(lng)
-	checkLicences()
-	checkScripts()
-	checkNews()
-next
-
-
-
-end
-
-
-print "=== TEST 1 ================================================"
-Local template:TScriptTemplate = GetScriptTemplateCollection().GetByGUID("scripttemplate-random-ron-averagedayseries01")
-Local title:String = template.GetTitle()
-'hasVariable(template.title)
-rem
-print "template variables:"
-print "==================="
-print template.templateVariables.GetVariablesAsText()
-print "==================="
-endrem
-'print GameScriptExpression.ParseLocalizedText(title, template, TLocalization.GetLanguageID("de")).ToString()
-'print GameScriptExpression.ParseLocalizedText(title, template, TLocalization.GetLanguageID("en")).ToString()
-rem
-print "==================="
-print "template resolved variables:"
-print "==================="
-print template.templateVariables.GetResolvedVariablesAsText()
-endrem
-print "==========================================================="
+Function checkDatabaseConsistency()
+	print "=== TEST 0 ================================================"
+	for local lng:String = eachin ["de","en","pl"]
+		TLocalization.SetCurrentLanguage(lng)
+		checkLicences()
+		checkScripts()
+		checkNews()
+	next
+End Function
 
 
 
-rem
+
+Function checkScriptTemplateVariables()
+	print "=== TEST 1 ================================================"
+	Local template:TScriptTemplate = GetScriptTemplateCollection().GetByGUID("scripttemplate-random-ron-averagedayseries01")
+	Local title:String = template.GetTitle()
+	'hasVariable(template.title)
+	rem
+	print "template variables:"
+	print "==================="
+	print template.templateVariables.GetVariablesAsText()
+	print "==================="
+	endrem
+	'print GameScriptExpression.ParseLocalizedText(title, template, TLocalization.GetLanguageID("de")).ToString()
+	'print GameScriptExpression.ParseLocalizedText(title, template, TLocalization.GetLanguageID("en")).ToString()
+	rem
+	print "==================="
+	print "template resolved variables:"
+	print "==================="
+	print template.templateVariables.GetResolvedVariablesAsText()
+	endrem
+	print "==========================================================="
+End Function
 
 
-print "=== TEST 2 ================================================"
-'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-fightagainst01")
-'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-subtilehumor01")
-'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-show1")
-'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-test")
-'GetScriptCollection().GenerateFromTemplate("theId")
+Function checkSimpleCsv()
+	print "output: ~q" + GameScriptExpression.Parse("${.csv:~q    ~nhello;world~q   :1}").GetValueText() +"~q"
+	print "output: ~q" + GameScriptExpression.Parse("${.csv:~q    ~nhello;world~q   :0}").GetValueText() +"~q"
+	print "output: ~q" + GameScriptExpression.Parse("${.csv:~q    ~nhello;world~q   :0:~q;~q:0}").GetValueText() +"~q"
+End Function
 
-local scriptNum:Int = 0
-for local script:TScript = eachin GetScriptCollection().GetAvailableScriptList()
-	If scriptNum > 0 
-		print "==================="
-	EndIf
-	print script.GetTitle()
-	print " D: "+script.GetDescription()
+
+
+Function checkScriptJobs()
+	print "=== TEST 2 ================================================"
+	'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-fightagainst01")
+	'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-subtilehumor01")
+	'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-show1")
+	'GetScriptCollection().GenerateFromTemplate("scripttemplate-random-ron-test")
+	GetScriptCollection().GenerateFromTemplate("theId")
 	
-	local jobs:String
-	for local j:TPersonProductionJob = EachIn script.GetJobs()
-		jobs :+ "job="+j.job + "(g="+j.gender+")  "
-	Next
-	print " J: "+jobs
-
-	For local subScript:TScript = eachin script.subScripts
-		print "  - "+subScript.GetTitle()
-		print "    D: "+subScript.GetDescription()
-	Next
+	local scriptNum:Int = 0
+	for local script:TScript = eachin GetScriptCollection().GetAvailableScriptList()
+		If scriptNum > 0 
+			print "==================="
+		EndIf
+		print script.GetTitle()
+		print " D: "+script.GetDescription()
+		
+		local jobs:String
+		for local j:TPersonProductionJob = EachIn script.GetJobs()
+			jobs :+ "job="+j.job + "(g="+j.gender+")  "
+		Next
+		print " J: "+jobs
 	
-	scriptNum :+ 1
-next
-print "==========================================================="
+		For local subScript:TScript = eachin script.subScripts
+			print "  - "+subScript.GetTitle()
+			print "    D: "+subScript.GetDescription()
+		Next
+		
+		scriptNum :+ 1
+	next
+	print "==========================================================="
+End Function
 
 
-
-print "=== TEST 3 ================================================"
-'Licence check ("cast" replacement)
-Local licence:TProgrammeLicence = GetProgrammeLicenceCollection().GetByGUID("3bd76bd9-3cb7-4a9d-8e57-815b1ea7c2f0")
-print "T: " + licence.GetTitle()
-print "D: " + licence.GetDescription()
-print "==========================================================="
-<<<<<<< tmp
-
-rem
-'local xml stuff ...
-print "=== TEST 4 ================================================"
-licence = GetProgrammeLicenceCollection().GetByGUID("test-programme-1")
-print "T: " + licence.GetTitle()
-print "D: " + licence.GetDescription()
-print "==========================================================="
-=======
->>>>>>> bf86f7d print programmes with variables
-endrem
+Function checkCastReplacement()
+	print "=== TEST 3 ================================================"
+	'Licence check ("cast" replacement)
+	Local licence:TProgrammeLicence = GetProgrammeLicenceCollection().GetByGUID("3bd76bd9-3cb7-4a9d-8e57-815b1ea7c2f0")
+	print "T: " + licence.GetTitle()
+	print "D: " + licence.GetDescription()
+	print "==========================================================="
+	
+	
+	'local xml stuff ...
+	print "=== TEST 4 ================================================"
+	licence = GetProgrammeLicenceCollection().GetByGUID("test-programme-1")
+	print "T: " + licence.GetTitle()
+	print "D: " + licence.GetDescription()
+	print "==========================================================="
+End Function

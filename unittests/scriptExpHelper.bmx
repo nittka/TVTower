@@ -9,6 +9,8 @@ Import "../source/game.stationmap.bmx"
 Import "../source/game.registry.loaders.bmx"
 Import "../source/game.player.difficulty.bmx"
 
+Const ITERATIONS:Int = 3
+
 Function startUI()
 	AppTitle = "TVT: Expression test"
 	Local gm:TGraphicsManager = GetGraphicsManager()
@@ -19,11 +21,6 @@ End Function
 Function hasVariable:Int(s:String)
 	'TODO common marker for all expression errors would be helpful
 	'conversion errors
-	if s.contains("(Undefined") then return True
-	if s.contains("(undefined") then return True
-	if s.contains("(unhandled") then return True
-	if s.contains("Cannot handle") then return True
-	if s.contains("(cast number ") then return True
 	'indicators for unresolved variables 
 	if s.contains("${") then return True
 	if s.contains("[")
@@ -78,6 +75,12 @@ Function hasVariable:Int(str:TLocalizedString)
 	return result
 End Function
 
+Function checkAvailableExpression(e:String, c:Object)
+	if e And Not e.contains("${.")
+		print e +" -> " + GameScriptExpression.ParseToTrue(e,c)
+	endif
+End Function
+
 Function checkLicences:int()
 	Local col:TProgrammeLicenceCollection = GetProgrammeLicenceCollection()
 
@@ -101,6 +104,15 @@ Function checkLicence:int(l:TProgrammeLicence)
 	EndIf
 End Function
 
+Function checkAds:int()
+	Local col:TAdContractBaseCollection = GetAdContractBaseCollection()
+	For local t:TAdContractBase = EachIn col.entries.Values()
+		checkAvailableExpression(t.availableScript,t)
+
+		'print t.getTitle()
+	Next
+End Function
+
 Function checkScripts:int()
 	Local col:TScriptTemplateCollection = GetScriptTemplateCollection()
 	For local t:TScriptTemplate = EachIn col.entries.Values()
@@ -112,10 +124,12 @@ End Function
 
 Function checkScript:int(t:TScriptTemplate)
 	local iterations:Int=1
+	checkAvailableExpression(t.availableScript,t)
+
 	if hasVariable(t.GetTitle()) or hasVariable(t.GetDescription())
 		'print t.GetTitle()
 		'print "  "+ t.GetDescription()
-		iterations=50
+		iterations=ITERATIONS
 	endif
 	For Local i:Int = 0 Until iterations
 		Local script:TScript = GetScriptCollection().GenerateFromTemplate(t.GetGUID())'TScript.createFromTemplate(t, True)
@@ -142,15 +156,17 @@ End Function
 Function checkNews:int()
 	Local col:TNewsEventTemplateCollection = GetNewsEventTemplateCollection()
 	For local t:TNewsEventTemplate = EachIn col.allTemplatesGUID.Values()
+		checkAvailableExpression(t.availableScript,t)
+
 		if t.newsType = TVTNewsType.InitialNews
 			local iterations:Int=1
 			if hasVariable(t.GetTitle()) or hasVariable(t.GetDescription())
 		'		print t.GetTitle()
 		'		print "  "+ t.GetDescription()
-				iterations=50
+				iterations=ITERATIONS
 			endif
 			if t.HasFlag(TVTNewsFlag.INVISIBLE_EVENT) 'trigger event for actual news
-				iterations=50
+				iterations=ITERATIONS
 			endif
 			'if iterations=1 then continue
 			For Local i:Int = 0 Until iterations

@@ -9,6 +9,8 @@ Import "../source/game.stationmap.bmx"
 Import "../source/game.registry.loaders.bmx"
 Import "../source/game.player.difficulty.bmx"
 
+Const ITERATIONS:Int = 3
+
 Function startUI()
 	AppTitle = "TVT: Expression test"
 	Local gm:TGraphicsManager = GetGraphicsManager()
@@ -19,11 +21,6 @@ End Function
 Function hasVariable:Int(s:String)
 	'TODO common marker for all expression errors would be helpful
 	'conversion errors
-	if s.contains("(Undefined") then return True
-	if s.contains("(undefined") then return True
-	if s.contains("(unhandled") then return True
-	if s.contains("Cannot handle") then return True
-	if s.contains("(cast number ") then return True
 	'indicators for unresolved variables 
 	if s.contains("${") then return True
 	if s.contains("[")
@@ -55,10 +52,12 @@ Function hasVariable:Int(s:String)
 		if s.contains(" 15% ") then return false
 		if s.contains(" 28% ") then return false
 		if s.contains(" 28%.") then return false
+		For Local i:Int= 10 until 25
+			if s.contains(" ."+i+" %.") then return false
+		Next
 		if s.contains(" .14%.") then return false
 		if s.contains(" .14% ") then return false
 		if s.contains(" .14 % ") then return false
-		if s.contains(" .14 %.") then return false
 		if s.contains(" 20%.") then return false
 		return True
 	endif 
@@ -76,6 +75,12 @@ Function hasVariable:Int(str:TLocalizedString)
 		endif
 	EndIf
 	return result
+End Function
+
+Function checkAvailableExpression(e:String, c:Object)
+	if e And Not e.contains("${.")
+		print e +" -> " + GameScriptExpression.ParseToTrue(e,c)
+	endif
 End Function
 
 Function checkLicences:int()
@@ -101,6 +106,17 @@ Function checkLicence:int(l:TProgrammeLicence)
 	EndIf
 End Function
 
+Function checkAds:int()
+	Local col:TAdContractBaseCollection = GetAdContractBaseCollection()
+	For local t:TAdContractBase = EachIn col.entries.Values()
+		checkAvailableExpression(t.availableScript,t)
+
+		Local c:TAdContract = New TAdContract.Create(t)
+		If hasVariable(c.getTitle()) Then print c.getTitle()
+		If hasVariable(c.getDescription()) Then print c.getDescription()
+	Next
+End Function
+
 Function checkScripts:int()
 	Local col:TScriptTemplateCollection = GetScriptTemplateCollection()
 	For local t:TScriptTemplate = EachIn col.entries.Values()
@@ -111,13 +127,15 @@ Function checkScripts:int()
 End Function
 
 Function checkScript:int(t:TScriptTemplate)
-	local iterations:Int=1
+	local it:Int=1
+	checkAvailableExpression(t.availableScript,t)
+
 	if hasVariable(t.GetTitle()) or hasVariable(t.GetDescription())
 		'print t.GetTitle()
 		'print "  "+ t.GetDescription()
-		iterations=50
+		it=ITERATIONS
 	endif
-	For Local i:Int = 0 Until iterations
+	For Local i:Int = 0 Until it
 		Local script:TScript = GetScriptCollection().GenerateFromTemplate(t.GetGUID())'TScript.createFromTemplate(t, True)
 		checkScript(script)
 		if script.getSubScriptCount()>0
@@ -142,25 +160,27 @@ End Function
 Function checkNews:int()
 	Local col:TNewsEventTemplateCollection = GetNewsEventTemplateCollection()
 	For local t:TNewsEventTemplate = EachIn col.allTemplatesGUID.Values()
+		checkAvailableExpression(t.availableScript,t)
+
 		if t.newsType = TVTNewsType.InitialNews
-			local iterations:Int=1
+			local it:Int=1
 			if hasVariable(t.GetTitle()) or hasVariable(t.GetDescription())
-		'		print t.GetTitle()
-		'		print "  "+ t.GetDescription()
-				iterations=50
+				'print t.GetTitle()
+				'print "  "+ t.GetDescription()
+				it=ITERATIONS
 			endif
 			if t.HasFlag(TVTNewsFlag.INVISIBLE_EVENT) 'trigger event for actual news
-				iterations=50
+				it=ITERATIONS
 			endif
 			'if iterations=1 then continue
-			For Local i:Int = 0 Until iterations
-				checkNews(t, Null,[])
+			For Local i:Int = 0 Until it
+				checkNews(t, Null,[], True)
 			Next
 		endif
 	Next
 End Function
 
-Function checkNews:int(t:TNewsEventTemplate, parentVar:TTemplateVariables, checkedIds:String[])
+Function checkNews:int(t:TNewsEventTemplate, parentVar:TTemplateVariables, checkedIds:String[], resetVars:Int)
 	Local n:TNewsEvent = New TNewsEvent.InitFromTemplate(t, parentVar)
 	n.doHappen()
 '	if hasVariable(t.GetTitle()) or hasVariable(t.GetDescription())
@@ -171,28 +191,28 @@ Function checkNews:int(t:TNewsEventTemplate, parentVar:TTemplateVariables, check
 
 	Local vars:TTemplateVariables = n.templateVariables
 	'TODO resetting variables to get different news threads does not yet work
-	if not parentVar and vars then vars.reset()
+	if (resetVars Or not parentVar) and vars then vars.reset()
 	if n.effects and n.effects.entries
 		For local list:TList= eachIn n.effects.entries.values()
 			For local e:TGameModifierNews_TriggerNews = eachin list
-				checkNews(e,vars, checkedIds)
+				checkNews(e,vars, checkedIds, False)
 			Next
 			For local c:TGameModifierNews_TriggerNewsChoice = eachin list
 				For local m:TGameModifierBase = eachIn c.modifiers
 					Local ct:TGameModifierNews_TriggerNews = TGameModifierNews_TriggerNews(m)
-					checkNews(ct,vars, checkedIds)
+					checkNews(ct,vars, checkedIds, False)
 				Next
 			Next
 		Next
 	endif
 End Function
 
-Function checkNews(effect:TGameModifierNews_TriggerNews, parentVar:TTemplateVariables, checkedIds:String[])
+Function checkNews(effect:TGameModifierNews_TriggerNews, parentVar:TTemplateVariables, checkedIds:String[], resetVars:Int)
 	if effect
 		Local t:TNewsEventTemplate =  GetNewsEventTemplateCollection().GetByGUID(effect.triggerNewsGUID)
 		if StringHelper.InArray(t.GUID, checkedIds) Then return
 		if t and t.newsType <> TVTNewsType.InitialNews
-			checkNews(t, parentVar, checkedIds + [t.GUID])
+			checkNews(t, parentVar, checkedIds + [t.GUID], resetVars)
 		endif
 	endif
 End Function

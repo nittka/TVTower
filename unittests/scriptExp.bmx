@@ -67,6 +67,7 @@ Function checkDatabaseConsistency()
 		checkLicences()
 		checkScripts()
 		checkNews()
+		checkAds()
 	next
 End Function
 

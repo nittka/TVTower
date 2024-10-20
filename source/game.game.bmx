@@ -15,6 +15,7 @@ Import "game.programmeproducer.specialprogrammes.bmx"
 Import "game.ai.bmx"
 Import "basefunctions_network.bmx"
 Import "game.network.networkhelper.bmx"
+Import "../unittests/scriptExpHelper.bmx"
 ?bmxng
 Import "Dig/base.util.bmxng.objectcountmanager.bmx"
 ?
@@ -306,6 +307,14 @@ rem
 			EndIf
 endrem
 		EndIf
+
+		for local lng:String = eachin ["de","en","pl"]
+			TLocalization.SetCurrentLanguage(lng)
+			checkLicences()
+			checkScripts()
+			checkNews()
+			checkAds()
+		next
 
 		gamesStarted :+ 1
 	End Method

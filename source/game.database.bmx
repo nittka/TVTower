@@ -826,6 +826,7 @@ Type TDatabaseLoader
 		'reconnect things
 
 		if connectors.length = 0
+			'print expression +" -> "+"${" + parts[0] + "}"
 			'ensure to at least wrap it one time! 
 			Return "${" + parts[0] + "}"
 		ElseIf connectors.length = parts.length - 1 'a CONN b CONN c -> 3 elements, 2 connectors)
@@ -844,10 +845,11 @@ Type TDatabaseLoader
 				convertSB.append("}")
 			Next
 			convertSB.append("}")
+			'print expression +" -> "+convertSB.ToString()
 			Return convertSB.ToString()
 		Else
 			TLogger.Log("TDatabaseLoader.ConvertOldAvailableScript", "Failed to convert script ~q"+expression+"~q, incorrect expression / too few connectors.", LOG_ERROR)
-			Return ""
+			throw expression +" could not be converted"
 		Endif
 		
 	End Function

@@ -3,7 +3,7 @@ Import Brl.Threads
 Import "Dig/base.util.time.bmx"
 Import "Dig/base.util.luaengine.bmx"
 
-Const THREADED_AI_DISABLED:int = False
+Const THREADED_AI_DISABLED:int = True
 
 
 Type TAiBase

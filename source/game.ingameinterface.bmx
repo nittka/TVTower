@@ -340,8 +340,25 @@ Type TInGameInterface
 							Local programme:TProgramme = TProgramme(obj)
 							If programme.licence
 								contentPrefix = programme.licence.GetGenresLine() + "~n"
-								CurrentProgramme = GetSpriteFromRegistry("gfx_interface_tv_programme_" +programme.licence.GetGUID() , True)
-								If CurrentProgramme.GetName() = "defaultsprite"
+								If Not programme.licence.data.customImagePresent
+									'TODO GUID is not really the best marker (image copies for all episodes...)
+									Local imagePath:String = "image/" + programme.licence.data.GUID + ".png"
+									If FileType(imagePath) = FILETYPE_FILE Then
+										Local image:TImage = LoadImage(imagePath,0)
+										If image
+											programme.licence.data.customImagePresent = 1
+											'TODO scaling
+											programme.licence.data.customSprite = new TSprite.InitFromImage(image, imagePath)
+										Else
+											programme.licence.data.customImagePresent = -1
+										EndIf
+									Else
+										programme.licence.data.customImagePresent = -1
+									End If
+								EndIf
+								If programme.licence.data.customImagePresent > 0
+									CurrentProgramme = programme.licence.data.customSprite
+								Else
 									CurrentProgramme = GetSpriteFromRegistry("gfx_interface_tv_programme_genre_" + TVTProgrammeGenre.GetAsString(programme.data.GetGenre()), "gfx_interface_tv_programme_none")
 								EndIf
 							Else

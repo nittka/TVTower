@@ -821,6 +821,11 @@ Type TProgrammeLicence Extends TBroadcastMaterialSource {_exposeToLua="selected"
 			GetData().topicality = GetData().GetMaxTopicality()
 		endif
 
+		If data And data.customImagePresent > 0
+			'TODO how to unload sprite?
+			data.customImagePresent = 0
+			data.customSprite = Null
+		EndIf
 		'do the same for all children
 		For local subLicence:TProgrammeLicence = EachIn subLicences
 			subLicence.GiveBackToLicencePool()

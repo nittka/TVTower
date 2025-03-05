@@ -430,6 +430,9 @@ Type TProgrammeData Extends TBroadcastMaterialSource {_exposeToLua}
 	'contains the title with placeholders replaced
 	Field titleProcessed:TLocalizedString {nosave}
 	Field descriptionProcessed:TLocalizedString {nosave}
+	'unpersisted fields for custom images
+	Field customImagePresent:Int = 0 {nosave}
+	Field customSprite:TSprite {nosave}
 
 
 	'array holding actor(s) and director(s) and ...

@@ -650,7 +650,7 @@ Type TDatabaseLoader
 			
 			'0 would mean: cuts price to 0
 			If person.GetProductionData().priceModifier = 0 Then person.GetProductionData().priceModifier = 1.0
-			person.GetProductionData().priceModifier = data.GetFloat("price_mod", person.GetProductionData().priceModifier)
+'			person.GetProductionData().priceModifier = data.GetFloat("price_mod", person.GetProductionData().priceModifier)
 
 			if TPersonProductionData(person.GetProductionData())
 				TPersonProductionData(person.GetProductionData()).topGenre = data.GetInt("topgenre", TPersonProductionData(person.GetProductionData()).topGenre)
@@ -825,9 +825,9 @@ Type TDatabaseLoader
 		newsEventTemplate.qualitySlope = 0.01 * data.GetFloat("quality_slope", 100 * newsEventTemplate.qualitySlope)
 
 		'price is "priceModifier" here (so add 1.0 until that is done in DB)
-		Local priceMod:Float = data.GetFloat("price", 0)
-		If priceMod = 0 Then priceMod = 1.0 'invalid data given
-		newsEventTemplate.SetModifier("price", data.GetFloat("price", newsEventTemplate.GetModifier("price")))
+'		Local priceMod:Float = data.GetFloat("price", 0)
+'		If priceMod = 0 Then priceMod = 1.0 'invalid data given
+'		newsEventTemplate.SetModifier("price", data.GetFloat("price", newsEventTemplate.GetModifier("price")))
 
 		Local happenTimeString:String = data.GetString("happen_time", "")
 		If happenTimeString
@@ -872,7 +872,7 @@ Type TDatabaseLoader
 
 
 		'=== TARGETGROUP ATTRACTIVITY MOD ===
-		newsEventTemplate.targetGroupAttractivityMod = GetV3TargetgroupAttractivityModFromNode(newsEventTemplate.targetGroupAttractivityMod, node, xml)
+		'newsEventTemplate.targetGroupAttractivityMod = GetV3TargetgroupAttractivityModFromNode(newsEventTemplate.targetGroupAttractivityMod, node, xml)
 
 
 
@@ -1423,7 +1423,7 @@ Type TDatabaseLoader
 
 		'compatibility: load price mod from "price_mod" first... later
 		'override with "modifiers"-data
-		programmeData.SetModifier("price", data.GetFloat("price_mod", programmeData.GetModifier("price")))
+'		programmeData.SetModifier("price", data.GetFloat("price_mod", programmeData.GetModifier("price")))
 
 		programmeData.SetFlag(data.GetInt("flags", 0))
 
@@ -1545,14 +1545,14 @@ Type TDatabaseLoader
 			]
 		EndIf
 		xml.LoadValuesToDataCSK(nodeGroups, data, _programmeLicenceDataGroupsKeys)
-		programmeData.targetGroups = data.GetInt("target_groups", programmeData.targetGroups)
+		'programmeData.targetGroups = data.GetInt("target_groups", programmeData.targetGroups)
 		programmeData.proPressureGroups = data.GetInt("pro_pressure_groups", programmeData.proPressureGroups)
 		programmeData.contraPressureGroups = data.GetInt("contra_pressure_groups", programmeData.contraPressureGroups)
 
 
 
 		'=== TARGETGROUP ATTRACTIVITY MOD ===
-		programmeData.targetGroupAttractivityMod = GetV3TargetgroupAttractivityModFromNode(programmeData.targetGroupAttractivityMod, node, xml)
+		'programmeData.targetGroupAttractivityMod = GetV3TargetgroupAttractivityModFromNode(programmeData.targetGroupAttractivityMod, node, xml)
 
 
 		'=== EFFECTS ===
@@ -1712,7 +1712,7 @@ Type TDatabaseLoader
 				data.review = reviewNew
 				data.speed = speedNew
 				data.outcome = outcomeNew
-				data.setModifier("price", priceNew)
+'				data.setModifier("price", priceNew)
 			EndIF
 		Endif
 		Function rndValue:Float(oldValue:Float, key:String, rndType:Int = 0, zeroChangeAllowed:Int=True)
@@ -2022,8 +2022,8 @@ Type TDatabaseLoader
 		scriptTemplate.broadcastTimeSlotStart = data.GetInt("broadcast_time_slot_start", scriptTemplate.broadcastTimeSlotStart)
 		scriptTemplate.broadcastTimeSlotEnd = data.GetInt("broadcast_time_slot_end", scriptTemplate.broadcastTimeSlotEnd)
 		
-		scriptTemplate.targetGroup = data.GetInt("target_groups", scriptTemplate.targetGroup)
-		scriptTemplate.targetGroupOptional = data.GetInt("target_groups_optional", scriptTemplate.targetGroupOptional)
+		'scriptTemplate.targetGroup = data.GetInt("target_groups", scriptTemplate.targetGroup)
+		'scriptTemplate.targetGroupOptional = data.GetInt("target_groups_optional", scriptTemplate.targetGroupOptional)
 
 		If data.Has("studio_size")
 			scriptTemplate.studioSizeMin = data.GetInt("studio_size")
@@ -2093,7 +2093,7 @@ Type TDatabaseLoader
 		Next
 
 		'=== TARGETGROUP ATTRACTIVITY MOD ===
-		scriptTemplate.targetGroupAttractivityMod = GetV3TargetgroupAttractivityModFromNode(null, node, xml)
+		'scriptTemplate.targetGroupAttractivityMod = GetV3TargetgroupAttractivityModFromNode(null, node, xml)
 
 		'=== EPISODES ===
 		'load children _after_ element is configured
@@ -2193,41 +2193,41 @@ Type TDatabaseLoader
 
 
 	Method GetV3TargetgroupAttractivityModFromNode:TAudience(audience:TAudience, node:TxmlNode,xml:TXmlHelper)
-		Local tgAttractivityNode:TxmlNode = xml.FindChildLC(node, "targetgroupattractivity")
-		If Not tgAttractivityNode Then Return audience
-
-		Local data:TData = New TData
-		Local searchData:String[TVTTargetGroup.baseGroupCount*3] '2 genders + "both"
-		Local searchIndex:Int = 0
-		For Local tgID:Int = EachIn TVTTargetGroup.GetBaseGroupIDs()
-			Local base:String = TVTTargetGroup.GetAsString( tgID )
-			searchData[searchIndex+0] = base
-			searchData[searchIndex+1] = base + "_male"
-			searchData[searchIndex+2] = base + "_female"
-			searchIndex :+ 3
-		Next
-		xml.LoadValuesToData(tgAttractivityNode, data, searchData)
+'		Local tgAttractivityNode:TxmlNode = xml.FindChildLC(node, "targetgroupattractivity")
+'		If Not tgAttractivityNode Then Return audience
+'
+'		Local data:TData = New TData
+'		Local searchData:String[TVTTargetGroup.baseGroupCount*3] '2 genders + "both"
+'		Local searchIndex:Int = 0
+'		For Local tgID:Int = EachIn TVTTargetGroup.GetBaseGroupIDs()
+'			Local base:String = TVTTargetGroup.GetAsString( tgID )
+'			searchData[searchIndex+0] = base
+'			searchData[searchIndex+1] = base + "_male"
+'			searchData[searchIndex+2] = base + "_female"
+'			searchIndex :+ 3
+'		Next
+'		xml.LoadValuesToData(tgAttractivityNode, data, searchData)
 
 		'loop over all genders (all, male, female) and assign found numbers
 		'- making sure to start with "all" allows assign "base", then
 		'  specific (if desired)
 		If Not audience Then audience = New TAudience.Set(1.0, 1.0)
-		For Local genderIndex:Int = 0 To TVTPersonGender.count
-			Local genderID:Int = TVTPersonGender.GetAtIndex(genderIndex)
-			Local genderString:String = TVTpersonGender.GetAsString( genderID )
-
-			For Local tgID:Int = EachIn TVTTargetGroup.GetBaseGroupIDs()
-				Local tgName:String = TVTTargetGroup.GetAsString(tgID)
-				Local key:String = tgName+"_"+genderString
-				If genderIndex = 0 Then key = tgName
-				'to avoid falling back to "1.0" on "female|male" while
-				'generic was set correctly before, we check if the key
-				'was found in the XML
-				If data.Has(key)
-					audience.SetGenderValue(tgID, data.GetFloat(key, 1.0), genderID)
-				EndIf
-			Next
-		Next
+'		For Local genderIndex:Int = 0 To TVTPersonGender.count
+'			Local genderID:Int = TVTPersonGender.GetAtIndex(genderIndex)
+'			Local genderString:String = TVTpersonGender.GetAsString( genderID )
+'
+'			For Local tgID:Int = EachIn TVTTargetGroup.GetBaseGroupIDs()
+'				Local tgName:String = TVTTargetGroup.GetAsString(tgID)
+'				Local key:String = tgName+"_"+genderString
+'				If genderIndex = 0 Then key = tgName
+'				'to avoid falling back to "1.0" on "female|male" while
+'				'generic was set correctly before, we check if the key
+'				'was found in the XML
+'				If data.Has(key)
+'					audience.SetGenderValue(tgID, data.GetFloat(key, 1.0), genderID)
+'				EndIf
+'			Next
+'		Next
 		Return audience
 	End Method
 

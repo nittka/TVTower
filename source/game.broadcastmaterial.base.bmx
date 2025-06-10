@@ -593,10 +593,10 @@ Type TBroadcastMaterialDefaultImpl extends TBroadcastMaterial {_exposeToLua="sel
 		If block = 1 Or Not lastProgrammeBlockAttraction Or usedAsType = TVTBroadcastMaterialType.NEWS
 			If audienceAttraction.genreDefinition
 				'Popularity of the programme/news-genre (PAID-flag for ads)
-				audienceAttraction.GenrePopularityMod = GetGenrePopularityMod(audienceAttraction.genreDefinition)
+				'audienceAttraction.GenrePopularityMod = GetGenrePopularityMod(audienceAttraction.genreDefinition)
 			EndIf
 
-			audienceAttraction.FlagsPopularityMod = GetFlagsPopularityMod()
+			'audienceAttraction.FlagsPopularityMod = GetFlagsPopularityMod()
 
 			'4 - Trailer
 			audienceAttraction.TrailerMod = GetTrailerMod()
@@ -622,11 +622,11 @@ Type TBroadcastMaterialDefaultImpl extends TBroadcastMaterial {_exposeToLua="sel
 		audienceAttraction.QualityOverTimeEffectMod = GetQualityOverTimeEffectMod(audienceAttraction.Quality, block)
 
 		'dynamic (modified by gamemodifiers)
-		audienceAttraction.GenreMod = GetGenreMod()
-		audienceAttraction.FlagsMod = GetFlagsMod()
+		'audienceAttraction.GenreMod = GetGenreMod()
+		'audienceAttraction.FlagsMod = GetFlagsMod()
 
 		'10 - Luck/Random adjustments
-		If withLuckEffect Then audienceAttraction.LuckMod = New TAudience(GetLuckMod())
+		'If withLuckEffect Then audienceAttraction.LuckMod = New TAudience(GetLuckMod())
 	End Method
 
 

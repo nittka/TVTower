@@ -242,8 +242,9 @@ Type TAudienceAttraction {_exposeToLua="selected"}
 
 		result.Multiply(1.0 + (CastMod-1.0) * MODINFLUENCE_CAST)
 
-	
-		If PublicImageMod Then result.Multiply( PublicImageMod.Copy().Add(1.0) )
+		'high image should not always cause better result
+		'if bad programme (expectations not met) it should have a negative effect
+		'If PublicImageMod Then result.Multiply( PublicImageMod.Copy().Add(1.0) )
 
 
 		'if QualityOverTimeEffectMod Then result.AddFloat(QualityOverTimeEffectMod)

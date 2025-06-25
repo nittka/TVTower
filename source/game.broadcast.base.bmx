@@ -317,7 +317,7 @@ Type TBroadcastManager
 					EndIf
 				Next
 
-
+'disable proramme/news effect on image here
 				Local weight:Float = 1.0
 				'for news, give a bit less images (less expensive to
 				'get "good ones")

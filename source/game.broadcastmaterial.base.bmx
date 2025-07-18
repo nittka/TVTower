@@ -608,7 +608,7 @@ Type TBroadcastMaterialDefaultImpl extends TBroadcastMaterial {_exposeToLua="sel
 			audienceAttraction.CastMod = GetCastMod()
 
 			'7 - Image
-			audienceAttraction.PublicImageMod = New TAudience(GetPublicImageMod())
+			'audienceAttraction.PublicImageMod = New TAudience(GetPublicImageMod())
 		Else
 			'COPY, not reference the childelements to avoid news manipulating
 			'movie-attraction-data ... if done on "reference base" keep

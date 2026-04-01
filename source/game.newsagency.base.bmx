@@ -260,7 +260,7 @@ Type TNewsAgency
 				data.AddBool("valueIsRelative", True)
 				data.AddInt("playerID", pID)
 				data.AddString("log", "decrease image for all caught channels")
-				NewsChainEvent1.AddEffectByData(data)
+'				NewsChainEvent1.AddEffectByData(data)
 			Next
 
 			'increase image for a broadcasting channel not being caught
@@ -274,7 +274,7 @@ Type TNewsAgency
 			data.Add("conditions", New TData.AddString("broadcaster_notInPlayerIDs", caughtChannelIDs))
 			data.AddString("log", "increase image for a broadcasting channel not being caught")
 
-			NewsChainEvent1.AddEffectByData(data)
+'			NewsChainEvent1.AddEffectByData(data)
 
 			'increase image (a bit less) for a broadcasting channel being
 			'caught but brave enough to send it...
@@ -287,7 +287,7 @@ Type TNewsAgency
 			data.AddInt("playerID", 0)
 			data.AddString("log", "increase for broadcasting channel")
 			data.Add("conditions", New TData.AddString("broadcaster_inPlayerIDs", caughtChannelIDs))
-			NewsChainEvent1.AddEffectByData(data)
+'			NewsChainEvent1.AddEffectByData(data)
 		EndIf
 		NewsChainEvent1.SetModifier(TNewsEvent.modKeyTopicality_AgeLS, 1.4)
 

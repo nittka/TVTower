@@ -480,7 +480,10 @@ Type RoomHandler_Archive extends TRoomHandler
 			'enable List interaction
 			programmeList.clicksAllowed = True
 			GuiListSuitcase.setOption(GUI_OBJECT_CLICKABLE, True)
-			'enable List interaction
+
+			If programmeList.openState <=0 And Not draggedGuiProgrammeLicence And KeyManager.IsHit(KEY_Y)
+				programmeList.setOpenLastState()
+			EndIf
 		Else
 			programmeList.clicksAllowed = False
 			GuiListSuitcase.setOption(GUI_OBJECT_CLICKABLE, False)
